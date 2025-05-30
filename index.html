@@ -3,8 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roslyn Talbot - Digital Media Director</title>
+    <title>Ros Talbot - Marketing Operations Specialist</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -14,290 +28,481 @@
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
-            color: #1a1a1a;
-            background: #ffffff;
+            color: var(--text);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease-out;
+        }
+
+        .cursor-ring {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: all 0.15s ease-out;
+        }
+
+        /* Floating Elements */
+        .floating-element {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) { animation-delay: 0s; }
+        .floating-element:nth-child(2) { animation-delay: 2s; }
+        .floating-element:nth-child(3) { animation-delay: 4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 24px;
         }
 
         /* Header */
         header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 80px 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background: var(--dark);
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(75, 162, 254, 0.2) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+        }
+
+        .header-text {
+            max-width: 800px;
+        }
+
+        .header-text .eyebrow {
+            font-size: 0.875rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.2s forwards;
+        }
+
+        .header-text h1 {
+            font-size: clamp(3rem, 8vw, 7rem);
+            font-weight: 800;
+            line-height: 0.9;
+            margin-bottom: 24px;
+            color: var(--light);
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .header-text .gradient-text {
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header-text .subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 40px;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.6s forwards;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            animation: slideUp 0.8s ease-out 0.8s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .header-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
         }
 
-        .header-text h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.1;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
         }
 
-        .header-text .subtitle {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            margin-bottom: 30px;
-        }
-
-        .contact-info {
-            display: flex;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.1);
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.2);
             backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            display: block;
-        }
-
-        .stat-label {
-            opacity: 0.9;
-            margin-top: 10px;
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
         }
 
         /* Navigation */
         nav {
-            background: white;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            border: 1px solid rgba(0,0,0,0.1);
+            opacity: 0;
+            animation: slideDown 0.8s ease-out 1s forwards;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
-        .nav-container {
-            display: flex;
-            justify-content: center;
-            padding: 20px 0;
+        nav.scrolled {
+            background: rgba(255,255,255,0.98);
+            border: 1px solid rgba(0,0,0,0.15);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .nav-links {
             display: flex;
-            gap: 40px;
+            gap: 32px;
             list-style: none;
         }
 
         .nav-links a {
+            color: rgba(30, 41, 59, 0.8);
             text-decoration: none;
-            color: #333;
             font-weight: 500;
-            transition: color 0.3s;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
             position: relative;
         }
 
-        .nav-links a:hover {
-            color: #667eea;
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #1e293b;
         }
 
         .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -5px;
+            bottom: -4px;
             left: 0;
             width: 0;
             height: 2px;
-            background: #667eea;
-            transition: width 0.3s;
+            background: var(--primary);
+            border-radius: 2px;
+            transition: width 0.3s ease;
         }
 
-        .nav-links a:hover::after {
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
             width: 100%;
         }
 
         /* Sections */
         section {
-            padding: 80px 0;
+            padding: 120px 0;
+            position: relative;
+        }
+
+        .section-light {
+            background: var(--light);
+            color: var(--text);
+        }
+
+        .section-gray {
+            background: var(--gray);
         }
 
         .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 20px;
-            color: #1a1a1a;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
         }
 
         .section-subtitle {
-            text-align: center;
-            font-size: 1.2rem;
-            color: #666;
-            margin-bottom: 60px;
+            font-size: 1.25rem;
+            color: var(--text-light);
+            margin-bottom: 80px;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         /* About */
-        .about-content {
+        .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 80px;
             align-items: center;
         }
 
         .about-text {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.125rem;
+            line-height: 1.7;
         }
 
         .about-text p {
-            margin-bottom: 25px;
+            margin-bottom: 24px;
         }
 
-        .skills-grid {
+        .stats-container {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 32px;
         }
 
-        .skill-tag {
-            background: #f8f9ff;
-            color: #667eea;
-            padding: 12px 20px;
-            border-radius: 25px;
+        .stat-card {
             text-align: center;
-            font-weight: 500;
-            border: 2px solid #e8ebff;
+            padding: 40px 32px;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(102, 126, 234, 0.2);
         }
 
         /* Experience */
-        .experience {
-            background: #f8f9ff;
+        .experience-timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
         }
 
-        .experience-card {
+        .timeline-item {
             background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
+            padding: 48px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            position: relative;
+            transition: transform 0.3s ease;
         }
 
-        .experience-header {
+        .timeline-item:hover {
+            transform: translateY(-8px);
+        }
+
+        .timeline-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 20px;
+            margin-bottom: 32px;
         }
 
-        .job-title {
+        .job-info h3 {
             font-size: 1.5rem;
             font-weight: 700;
-            color: #1a1a1a;
+            margin-bottom: 8px;
         }
 
-        .company-name {
-            font-size: 1.2rem;
-            color: #667eea;
+        .company {
+            font-size: 1.125rem;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             font-weight: 600;
         }
 
-        .job-duration {
-            background: #667eea;
+        .duration {
+            background: var(--accent);
             color: white;
-            padding: 8px 16px;
+            padding: 8px 20px;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.875rem;
+            font-weight: 600;
         }
 
         .achievements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
             list-style: none;
-            margin-top: 20px;
         }
 
-        .achievements li {
-            margin-bottom: 12px;
-            padding-left: 25px;
-            position: relative;
+        .achievement-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: var(--gray);
+            border-radius: 12px;
         }
 
-        .achievements li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: #667eea;
+        .achievement-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
             font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
         }
 
         /* Portfolio */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 32px;
         }
 
         .portfolio-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 24px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
         .portfolio-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
 
         .portfolio-image {
-            height: 200px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 240px;
+            background: var(--primary);
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1));
+        }
+
+        .portfolio-icon {
+            font-size: 4rem;
             color: white;
-            font-size: 3rem;
+            position: relative;
+            z-index: 2;
         }
 
         .portfolio-content {
-            padding: 30px;
+            padding: 32px;
         }
 
         .portfolio-title {
-            font-size: 1.3rem;
+            font-size: 1.375rem;
             font-weight: 700;
-            margin-bottom: 15px;
+            margin-bottom: 16px;
         }
 
         .portfolio-description {
-            color: #666;
-            margin-bottom: 20px;
+            color: var(--text-light);
+            margin-bottom: 24px;
+            line-height: 1.6;
         }
 
         .portfolio-tags {
@@ -307,20 +512,18 @@
         }
 
         .portfolio-tag {
-            background: #f0f0f0;
-            padding: 5px 12px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            color: #666;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
         }
 
         /* Contact */
         .contact {
-            background: #1a1a1a;
+            background: var(--dark);
             color: white;
-        }
-
-        .contact-content {
             text-align: center;
         }
 
@@ -328,280 +531,446 @@
             color: white;
         }
 
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+        .contact .section-subtitle {
+            color: rgba(255,255,255,0.7);
         }
 
-        .contact-card {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 15px;
-            text-align: center;
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            padding: 48px;
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .contact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
         }
 
-        .cta-button {
-            display: inline-block;
-            background: #667eea;
-            color: white;
-            padding: 15px 40px;
-            border-radius: 30px;
-            text-decoration: none;
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
             font-weight: 600;
-            margin-top: 30px;
-            transition: background 0.3s;
+            color: rgba(255,255,255,0.9);
         }
 
-        .cta-button:hover {
-            background: #5a6fd8;
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 16px 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 12px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
-        /* Responsive */
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .header-content {
-                grid-template-columns: 1fr;
-                text-align: center;
+            .container {
+                padding: 0 16px;
             }
 
             .header-text h1 {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
-            .about-content {
+            .about-grid {
                 grid-template-columns: 1fr;
+                gap: 40px;
             }
 
-            .skills-grid {
+            .stats-container {
                 grid-template-columns: 1fr;
             }
 
             .nav-links {
                 gap: 20px;
-                flex-wrap: wrap;
             }
 
-            .experience-header {
+            .btn {
+                padding: 12px 24px;
+            }
+
+            .cta-group {
                 flex-direction: column;
-                gap: 15px;
             }
 
-            .stats-grid {
+            .timeline-header {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .achievements {
                 grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 32px 24px;
             }
         }
     </style>
 </head>
 <body>
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <nav>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#portfolio">Work</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
     <header>
+        <div class="header-bg"></div>
+        <div class="floating-element" style="top: 10%; left: 10%; width: 100px; height: 100px; background: rgba(102, 126, 234, 0.1); border-radius: 50%;"></div>
+        <div class="floating-element" style="top: 60%; right: 10%; width: 80px; height: 80px; background: rgba(118, 75, 162, 0.1); border-radius: 12px;"></div>
+        <div class="floating-element" style="bottom: 20%; left: 20%; width: 60px; height: 60px; background: rgba(75, 162, 254, 0.1); border-radius: 50%;"></div>
+        
         <div class="container">
             <div class="header-content">
                 <div class="header-text">
-                    <h1>Roslyn Talbot</h1>
-                    <p class="subtitle">Digital Media Director & Content Production Specialist</p>
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <span>📧</span> ros.talbot@gmail.com
-                        </div>
-                        <div class="contact-item">
-                            <span>📱</span> 979-799-5483
-                        </div>
-                        <div class="contact-item">
-                            <span>📍</span> Greater Houston Area
-                        </div>
-                    </div>
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <span class="stat-number">9</span>
-                        <div class="stat-label">Years Experience</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">800+</span>
-                        <div class="stat-label">Podcast Episodes</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">80K+</span>
-                        <div class="stat-label">YouTube Subscribers</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">1000+</span>
-                        <div class="stat-label">Students Reached</div>
+                    <div class="eyebrow">Marketing Operations Specialist</div>
+                    <h1>Hi, I'm <span class="gradient-text">Ros</span></h1>
+                    <p class="subtitle">I coordinate cross-functional marketing teams and streamline content production to deliver consistent, high-quality campaigns across multiple platforms.</p>
+                    <div class="cta-group">
+                        <a href="#portfolio" class="btn btn-primary">
+                            View My Work
+                            <span>→</span>
+                        </a>
+                        <a href="#contact" class="btn btn-secondary">
+                            Let's Connect
+                            <span>✦</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <nav>
+    <section id="about" class="section-light">
         <div class="container">
-            <div class="nav-container">
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <section id="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>I'm a creative and detail-focused Media Director with 9 years of experience overseeing multimedia production, online course development, and content operations in fast-paced digital environments.</p>
+            <div class="about-grid fade-in">
+                <div>
+                    <h2 class="section-title">Operations-Focused Marketing Professional</h2>
+                    <p class="section-subtitle">9 years of coordinating remote teams and streamlining content workflows</p>
+                    <div class="about-text">
+                        <p>I specialize in being the central hub that makes marketing campaigns actually happen. My strength lies in coordinating remote specialists, managing complex project timelines, and ensuring all the moving pieces come together seamlessly across platforms.</p>
+                        
+                        <p>Starting as one of the first hires at a bootstrapped startup (just the founder, one marketing specialist, and me), I began handling everything from admin and basic web development to customer service. As the company grew, my role naturally evolved into marketing operations, where I learned to be resourceful, build scalable processes, and deliver professional results with startup budgets.</p>
+                        
+                        <p>This background taught me to thrive in fast-paced, resource-conscious environments where everyone wears multiple hats. I've built systems and workflows that allow small teams to compete with much larger organizations, always focusing on efficiency, quality, and sustainable growth.</p>
+                    </div>
                     
-                    <p>My expertise lies in managing comprehensive content strategies across multiple platforms while maintaining brand consistency and quality standards. I've successfully directed creative teams to produce over 800 podcast episodes and helped grow a YouTube channel to 80,000+ subscribers.</p>
-                    
-                    <p>I'm passionate about creating engaging digital experiences that educate and inspire audiences, and I'm looking to transition into roles where hands-on execution and creative oversight are key.</p>
+                    <div class="skills-grid">
+                        <div class="skill-item">Project Coordination</div>
+                        <div class="skill-item">Remote Team Management</div>
+                        <div class="skill-item">Content Operations</div>
+                        <div class="skill-item">Process Optimization</div>
+                        <div class="skill-item">Quality Assurance</div>
+                        <div class="skill-item">Multi-Platform Publishing</div>
+                    </div>
                 </div>
-                <div class="skills-grid">
-                    <div class="skill-tag">Content Strategy</div>
-                    <div class="skill-tag">Video Production</div>
-                    <div class="skill-tag">Podcast Management</div>
-                    <div class="skill-tag">Team Leadership</div>
-                    <div class="skill-tag">Brand Consistency</div>
-                    <div class="skill-tag">Course Development</div>
-                    <div class="skill-tag">Social Media</div>
-                    <div class="skill-tag">Project Management</div>
+                
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <span class="stat-number">900+</span>
+                        <div class="stat-label">Podcast Episodes Produced</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">80K+</span>
+                        <div class="stat-label">YouTube Subscribers Grown</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">1000+</span>
+                        <div class="stat-label">Students Educated</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">9</span>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="experience" class="experience">
+    <section class="section-gray">
         <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <p class="section-subtitle">Leading content production and media strategy for digital education</p>
-            
-            <div class="experience-card">
-                <div class="experience-header">
-                    <div>
-                        <div class="job-title">Media Director</div>
-                        <div class="company-name">The Contractor Fight</div>
+            <div class="fade-in">
+                <h2 class="section-title">Tools & Platforms</h2>
+                <p class="section-subtitle">Technical skills and software expertise developed through hands-on experience</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto;">
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Content & Creative</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Canva</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">YouTube Studio</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Vimeo</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Podcast Platforms</div>
+                        </div>
                     </div>
-                    <div class="job-duration">2016 - Present</div>
+                    
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Web & Platforms</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">WordPress</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">AccessAlly</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Shopify</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Basic HTML/CSS</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Marketing & Automation</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Ontraport</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Meta Business Suite</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Ads</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Email Marketing</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Project Management</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Slack</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Trello</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Drive</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Process Documentation</div>
+                        </div>
+                    </div>
                 </div>
-                <ul class="achievements">
-                    <li>Directed creative content and media production for a leading contractor education company</li>
-                    <li>Managed daily execution of branded video, podcast, course, and social media content</li>
-                    <li>Oversaw remote team of designers, editors, and developers</li>
-                    <li>Led content production for over 800 podcast episodes</li>
-                    <li>Supported growth of YouTube channel to 80,000+ subscribers</li>
-                    <li>Planned content calendars aligned with course launches, webinars, and marketing cycles</li>
-                    <li>Designed layouts for online training portals using WordPress + AccessAlly</li>
-                    <li>Supported content for paid media campaigns across Facebook, Instagram, YouTube, and Google Ads</li>
-                    <li>Delivered educational content consumed by 1,000+ contractors through online learning platforms</li>
-                </ul>
             </div>
-
-            <div class="experience-card">
-                <div class="experience-header">
-                    <div>
-                        <div class="job-title">Digital Media Specialist</div>
-                        <div class="company-name">Various Organizations</div>
-                    </div>
-                    <div class="job-duration">2014 - 2016</div>
-                </div>
-                <ul class="achievements">
-                    <li>Website setup and maintenance, blog updates, and e-commerce system support</li>
-                    <li>Social media setup and campaign management</li>
-                    <li>Event planning, webinar setup, and newsletter design</li>
-                    <li>Customer service and calendar/schedule coordination</li>
-                    <li>Office and production logistics, vendor coordination</li>
-                </ul>
+        </div>
+    </section>
             </div>
         </div>
     </section>
 
-    <section id="portfolio">
+    <section id="experience" class="section-gray">
         <div class="container">
-            <h2 class="section-title">Portfolio Highlights</h2>
-            <p class="section-subtitle">Examples of successful content production and media management</p>
-            
-            <div class="portfolio-grid">
-                <div class="portfolio-card">
-                    <div class="portfolio-image">🎙️</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Podcast Production Management</h3>
-                        <p class="portfolio-description">Managed end-to-end production of 800+ podcast episodes, coordinating remote teams and maintaining consistent brand quality across all releases.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Audio Production</span>
-                            <span class="portfolio-tag">Team Management</span>
-                            <span class="portfolio-tag">Brand Consistency</span>
+            <div class="fade-in">
+                <h2 class="section-title">Coordinating Success Across Teams & Platforms</h2>
+                <p class="section-subtitle">Proven track record of managing complex marketing operations in remote environments</p>
+                
+                <div class="experience-timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div class="job-info">
+                                <h3>Marketing Launch Manager</h3>
+                                <div class="company">The Contractor Fight</div>
+                            </div>
+                            <div class="duration">2016 - Present</div>
                         </div>
+                        
+                        <ul class="achievements">
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🚀</div>
+                                <div>Grew with startup from early-stage (3-person team) to established company, evolving from general operations to specialized marketing coordination role</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🎯</div>
+                                <div>Coordinate content production across video, podcast, and social platforms, serving as central point of contact for all marketing deliverables</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">👥</div>
+                                <div>Manage relationships with remote specialists (designers, video editors, developers) to ensure timely, on-brand delivery of marketing assets</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🎙️</div>
+                                <div>Oversee production pipeline for 900+ podcast episodes, maintaining quality standards and publishing schedules</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">📈</div>
+                                <div>Support content strategy that contributed to YouTube channel growth to 80,000+ subscribers in contractor education niche</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🎓</div>
+                                <div>Collaborate with development team to optimize online learning experiences, supporting education of 1,000+ contractors</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">📅</div>
+                                <div>Plan and execute content calendars aligned with product launches, webinars, and marketing campaigns</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">⚡</div>
+                                <div>Built scalable processes and workflows that allow small team to deliver professional-quality marketing campaigns consistently</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🛍️</div>
+                                <div>Manage e-commerce operations including branded merchandise design, Shopify storefront management, and print-on-demand fulfillment coordination</div>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="portfolio-card">
-                    <div class="portfolio-image">📺</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">YouTube Channel Growth</h3>
-                        <p class="portfolio-description">Supported strategic content planning and production that grew a YouTube channel to 80,000+ subscribers in the contractor education space.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Video Strategy</span>
-                            <span class="portfolio-tag">YouTube Optimization</span>
-                            <span class="portfolio-tag">Audience Growth</span>
+    <section id="portfolio" class="section-light">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="section-title">Marketing Operations in Action</h2>
+                <p class="section-subtitle">Real examples of coordinating teams and streamlining processes for consistent results</p>
+                
+                <div class="portfolio-grid">
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🎙️</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Remote Team Coordination</h3>
+                            <p class="portfolio-description">Coordinate remote specialists across design, video editing, and development to maintain consistent brand standards and meet tight deadlines across 900+ podcast episodes and ongoing content campaigns.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Project Management</span>
+                                <span class="portfolio-tag">Remote Teams</span>
+                                <span class="portfolio-tag">Quality Control</span>
+                                <span class="portfolio-tag">Process Optimization</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="portfolio-card">
-                    <div class="portfolio-image">🎓</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Online Course Development</h3>
-                        <p class="portfolio-description">Designed layouts and user experiences for online training portals, delivering educational content to 1,000+ contractors through optimized learning platforms.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Course Design</span>
-                            <span class="portfolio-tag">WordPress</span>
-                            <span class="portfolio-tag">UX Design</span>
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">📈</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Content Operations & Workflow</h3>
+                            <p class="portfolio-description">Established streamlined processes that support YouTube channel growth to 80,000+ subscribers by coordinating content planning, production timelines, and cross-platform publishing schedules.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Workflow Design</span>
+                                <span class="portfolio-tag">Content Planning</span>
+                                <span class="portfolio-tag">Publishing Operations</span>
+                                <span class="portfolio-tag">Platform Management</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="portfolio-card">
-                    <div class="portfolio-image">📱</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Multi-Platform Content Strategy</h3>
-                        <p class="portfolio-description">Coordinated content across social media platforms, supporting paid advertising campaigns on Facebook, Instagram, YouTube, and Google Ads.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Social Media</span>
-                            <span class="portfolio-tag">Paid Advertising</span>
-                            <span class="portfolio-tag">Content Planning</span>
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🎓</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Learning Platform Coordination</h3>
+                            <p class="portfolio-description">Collaborate with development teams to optimize user experience for online training portals serving 1,000+ contractors, ensuring content is accessible, well-organized, and aligned with learning objectives.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Platform Management</span>
+                                <span class="portfolio-tag">User Experience</span>
+                                <span class="portfolio-tag">Content Organization</span>
+                                <span class="portfolio-tag">Cross-team Collaboration</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="portfolio-card">
-                    <div class="portfolio-image">🎨</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Creative Asset Management</h3>
-                        <p class="portfolio-description">Refined designer-created graphics in Canva and reviewed video edits to ensure brand alignment across all media assets and platforms.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Graphic Design</span>
-                            <span class="portfolio-tag">Canva</span>
-                            <span class="portfolio-tag">Quality Assurance</span>
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🚀</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Campaign Launch Coordination</h3>
+                            <p class="portfolio-description">Coordinate multi-platform content rollouts supporting paid advertising campaigns across Facebook, Instagram, YouTube, and Google Ads, ensuring consistent messaging and timely delivery across all touchpoints.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Launch Management</span>
+                                <span class="portfolio-tag">Multi-Platform</span>
+                                <span class="portfolio-tag">Brand Consistency</span>
+                                <span class="portfolio-tag">Timeline Management</span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="portfolio-card">
-                    <div class="portfolio-image">📊</div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Marketing Campaign Support</h3>
-                        <p class="portfolio-description">Planned content calendars aligned with course launches, webinars, and marketing cycles, ensuring cohesive messaging across all touchpoints.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Campaign Planning</span>
-                            <span class="portfolio-tag">Content Calendar</span>
-                            <span class="portfolio-tag">Marketing Integration</span>
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">⚡</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Creative Operations & QA</h3>
+                            <p class="portfolio-description">Established systematic creative review processes and asset management workflows that maintained high-quality output across video, graphic, and web content while managing remote design and development teams efficiently.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Creative Operations</span>
+                                <span class="portfolio-tag">Quality Assurance</span>
+                                <span class="portfolio-tag">Asset Management</span>
+                                <span class="portfolio-tag">Remote Teams</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🎯</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Marketing Operations Planning</h3>
+                            <p class="portfolio-description">Plan and execute integrated content calendars that support product launches, webinars, and marketing campaigns, coordinating timelines across teams to ensure all deliverables align with business objectives and deadlines.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Operations Planning</span>
+                                <span class="portfolio-tag">Launch Coordination</span>
+                                <span class="portfolio-tag">Timeline Management</span>
+                                <span class="portfolio-tag">Cross-functional Collaboration</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -611,35 +980,96 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <div class="contact-content">
-                <h2 class="section-title">Let's Work Together</h2>
-                <p class="section-subtitle">Ready to bring creative vision and strategic execution to your next content project</p>
+            <div class="fade-in">
+                <h2 class="section-title">Let's Talk About Your Next Project</h2>
+                <p class="section-subtitle">Ready to bring organization, efficiency, and reliable execution to your marketing operations team.</p>
                 
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <div class="contact-icon">📧</div>
-                        <h3>Email</h3>
-                        <p>ros.talbot@gmail.com</p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">📱</div>
-                        <h3>Phone</h3>
-                        <p>979-799-5483</p>
-                    </div>
-                    <div class="contact-card">
-                        <div class="contact-icon">📍</div>
-                        <h3>Location</h3>
-                        <p>Greater Houston Area</p>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="What should I call you?" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="your.name@company.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <input type="text" id="company" name="company" placeholder="Where do you work?">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Project Details</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your vision, challenges, or the impact you're looking to create..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            Start the Conversation
+                            <span>→</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div style="margin-top: 48px; padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.1); display: flex; justify-content: center; gap: 40px; flex-wrap: wrap;">
+                    <a href="mailto:ros.talbot@gmail.com" style="color: rgba(255,255,255,0.8); text-decoration: none; display: flex; align-items: center; gap: 12px; transition: color 0.3s ease;">
+                        <span style="font-size: 1.2rem;">📧</span>
+                        ros.talbot@gmail.com
+                    </a>
+                    <a href="tel:979-799-5483" style="color: rgba(255,255,255,0.8); text-decoration: none; display: flex; align-items: center; gap: 12px; transition: color 0.3s ease;">
+                        <span style="font-size: 1.2rem;">📱</span>
+                        979-799-5483
+                    </a>
+                    <div style="color: rgba(255,255,255,0.8); display: flex; align-items: center; gap: 12px;">
+                        <span style="font-size: 1.2rem;">📍</span>
+                        Greater Houston Area
                     </div>
                 </div>
-                
-                <a href="mailto:ros.talbot@gmail.com" class="cta-button">Get In Touch</a>
             </div>
         </div>
     </section>
 
     <script>
-        // Smooth scrolling for navigation links
+        // Custom cursor
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorRing = document.querySelector('.cursor-ring');
+
+        let mouseX = 0, mouseY = 0;
+        let ringX = 0, ringY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateRing() {
+            ringX += (mouseX - ringX) * 0.1;
+            ringY += (mouseY - ringY) * 0.1;
+            
+            cursorRing.style.left = ringX + 'px';
+            cursorRing.style.top = ringY + 'px';
+            
+            requestAnimationFrame(animateRing);
+        }
+        animateRing();
+
+        // Hover effects for interactive elements
+        const interactiveElements = document.querySelectorAll('a, button, .portfolio-card, .stat-card, .timeline-item');
+        
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursorRing.style.transform = 'scale(1.5)';
+                cursorRing.style.borderColor = 'rgba(102, 126, 234, 0.6)';
+            });
+            
+            el.addEventListener('mouseleave', () => {
+                cursorRing.style.transform = 'scale(1)';
+                cursorRing.style.borderColor = 'rgba(102, 126, 234, 0.3)';
+            });
+        });
+
+        // Smooth scrolling for navigation
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -653,16 +1083,17 @@
             });
         });
 
-        // Add active state to navigation based on scroll position
-        window.addEventListener('scroll', () => {
-            const sections = document.querySelectorAll('section');
-            const navLinks = document.querySelectorAll('.nav-links a');
-            
+        // Navigation active state and background adaptation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        const nav = document.querySelector('nav');
+
+        function updateActiveNav() {
             let current = '';
             sections.forEach(section => {
-                const sectionTop = section.offsetTop;
+                const sectionTop = section.offsetTop - 100;
                 const sectionHeight = section.clientHeight;
-                if (scrollY >= (sectionTop - 200)) {
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
                     current = section.getAttribute('id');
                 }
             });
@@ -673,7 +1104,79 @@
                     link.classList.add('active');
                 }
             });
+
+            // Add scrolled class for enhanced visibility
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        }
+
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
         });
+
+        // Form handling
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Create mailto link
+            const subject = encodeURIComponent(`New Project Inquiry from ${data.name}`);
+            const body = encodeURIComponent(`Hi Roslyn,
+
+${data.message}
+
+Best regards,
+${data.name}
+${data.email}
+${data.company ? `\n${data.company}` : ''}`);
+            
+            const mailtoLink = `mailto:ros.talbot@gmail.com?subject=${subject}&body=${body}`;
+            window.location.href = mailtoLink;
+        });
+
+        // Add some performance optimizations
+        let ticking = false;
+        
+        function updateOnScroll() {
+            updateActiveNav();
+            ticking = false;
+        }
+        
+        window.addEventListener('scroll', () => {
+            if (!ticking) {
+                requestAnimationFrame(updateOnScroll);
+                ticking = true;
+            }
+        });
+
+        // Hide custom cursor on mobile
+        if (window.innerWidth <= 768) {
+            cursorDot.style.display = 'none';
+            cursorRing.style.display = 'none';
+        }
     </script>
 </body>
 </html>
