@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Operations at Scale - Ros Talbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 32px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Content */
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .section-content p {
+            margin-bottom: 24px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .content-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .content-type {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .content-type h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .content-type p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin: 40px 0;
+        }
+
+        .platform-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .platform-item.primary {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-color: rgba(102, 126, 234, 0.3);
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .tool-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .process-timeline {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 24px;
+            margin-bottom: 32px;
+            align-items: flex-start;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: var(--primary);
+            border-radius: 50%;
+            flex-shrink: 0;
+            margin-top: 6px;
+            position: relative;
+        }
+
+        .timeline-dot::after {
+            content: '';
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            width: 2px;
+            height: 40px;
+            background: #e2e8f0;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item:last-child .timeline-dot::after {
+            display: none;
+        }
+
+        .timeline-content h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: var(--gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title::before {
+                left: 0;
+                top: -12px;
+                width: 100%;
+                height: 4px;
+            }
+
+            .section-title {
+                padding-top: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-link">
+                    ← Back to Portfolio
+                </a>
+                <h1 class="case-study-title">Content Operations at Scale</h1>
+                <p class="case-study-subtitle">Building cohesive content strategy and brand presence across multiple platforms while maintaining consistency during rapid growth, establishing recognizable brand identity, and creating sustainable workflows for a growing team.</p>
+                <div class="case-study-meta">
+                    <div class="meta-item">📈 Multi-Platform Growth</div>
+                    <div class="meta-item">🎨 Brand Management</div>
+                    <div class="meta-item">🏗️ Scalable Systems</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="content-section">
+                <h2 class="section-title">The Challenge</h2>
+                <div class="section-content">
+                    <p>Build cohesive content strategy and brand presence across multiple platforms while maintaining consistency during rapid growth. Started with little to no social media presence and fragmented branding, needing to identify effective platforms and create sustainable workflows for a growing team.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Starting Point:</strong> When I joined, we had minimal social media presence and the profiles we did have were branded for a different company focus. There was no consistency and no real brand vibe. The founder handled everything himself but was easily distracted by social media trends and "gurus," jumping between strategies without sustainable systems.</p>
+                    </div>
+
+                    <p>The core challenge was creating systematic content operations that could:</p>
+                    <ul style="margin: 24px 0; padding-left: 24px;">
+                        <li style="margin-bottom: 12px;">Support rapid audience growth across multiple platforms</li>
+                        <li style="margin-bottom: 12px;">Maintain brand consistency as the team expanded</li>
+                        <li style="margin-bottom: 12px;">Convert followers into email subscribers and customers</li>
+                        <li style="margin-bottom: 12px;">Scale without requiring constant founder involvement</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Strategic Solution</h2>
+                <div class="section-content">
+                    <p>Established comprehensive content operations infrastructure including quarterly planning calendars, asset management systems in Google Drive, and brand consistency guidelines. Worked with marketing leadership to identify effective platform mix and built workflows for sustainable content coordination.</p>
+                    
+                    <div class="platform-grid">
+                        <div class="platform-item primary">Facebook & Instagram</div>
+                        <div class="platform-item primary">YouTube</div>
+                        <div class="platform-item">LinkedIn (High-Ticket)</div>
+                        <div class="platform-item">Email (30K+ List)</div>
+                        <div class="platform-item">Private Facebook Group</div>
+                        <div class="platform-item">Podcast Distribution</div>
+                    </div>
+
+                    <p><strong>Platform Strategy:</strong> Rather than trying to be everywhere, we identified where our contractor audience actually spent time. Facebook and Instagram for daily engagement, LinkedIn for high-value promotions, and YouTube for educational content that drives long-term growth.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Content Framework Development</h2>
+                <div class="section-content">
+                    <p>Created four distinct content types with specific purposes and workflows, ensuring consistent quality and messaging across all platforms:</p>
+
+                    <div class="content-types">
+                        <div class="content-type">
+                            <h4>🎯 Story-Based Posts</h4>
+                            <p>Heart posts written by copywriter based on founder's stories. Designed to build connection and trust with contractor audience through authentic experiences.</p>
+                        </div>
+                        <div class="content-type">
+                            <h4>🚀 Promotional Content</h4>
+                            <p>Sales-focused posts promoting launches and coaching program openings. Features bold graphics and compelling copy designed to drive conversions.</p>
+                        </div>
+                        <div class="content-type">
+                            <h4>📱 Video Shorts</h4>
+                            <p>1-2 daily video clips turned into reels with strong CTAs. Coordinated with editing team to select best moments from longer content.</p>
+                        </div>
+                        <div class="content-type">
+                            <h4>📺 Live Events</h4>
+                            <p>Virtual workshops and live streams that close with strategic pitches. Handled setup, promotion, streaming coordination, and replay management.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Brand Management & Asset Systems</h2>
+                <div class="section-content">
+                    <p>As the designated "Keeper of the Brand," I established and maintained comprehensive brand consistency across all marketing materials and team members.</p>
+
+                    <div class="process-timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Brand Guidelines Development</h4>
+                                <p>Created comprehensive style guides with exact color codes, fonts, image styles, and voice guidelines. Established masculine, gritty brand aesthetic that resonates with contractors.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Asset Management System</h4>
+                                <p>Built organized Google Drive structure with logo files in every orientation, curated event photos, and image buckets for designers and editors to access.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Quality Control Process</h4>
+                                <p>Became first line of review for all visual content, ensuring designers use correct colors, fonts, and image styles before publication.</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot"></div>
+                            <div class="timeline-content">
+                                <h4>Voice & Tone Mastery</h4>
+                                <p>Learned to write in founder's distinctive no-holds-barred style that resonates with military background contractors, ensuring authentic brand voice across platforms.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Community Building Operations</h2>
+                <div class="section-content">
+                    <p>Developed and managed systematic community growth strategy with the innovative "Own Your Crap" engagement system that drove authentic participation and list building.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Community Growth Strategy:</strong> Required new Facebook group members to post within 24 hours sharing how they were getting in their own way of business growth. Members who didn't post received warning tags and were removed if they still didn't engage. This created highly engaged community.</p>
+                    </div>
+
+                    <p><strong>Systematic Management Process:</strong></p>
+                    <ul style="margin: 24px 0; padding-left: 24px;">
+                        <li style="margin-bottom: 12px;">Tracked member participation in Google Sheets with completion status</li>
+                        <li style="margin-bottom: 12px;">Managed member vetting and contact information import to CRM</li>
+                        <li style="margin-bottom: 12px;">Removed thousands of members over the years to maintain quality</li>
+                        <li style="margin-bottom: 12px;">Created workflow for importing engaged members to email marketing system</li>
+                    </ul>
+
+                    <p>This intensive community management approach was eventually streamlined, but the foundation it built created the engaged audience that continues to drive business growth.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Results & Growth Impact</h2>
+                <div class="section-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-number">80K+</span>
+                            <div class="metric-label">YouTube Subscribers</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">20K</span>
+                            <div class="metric-label">Facebook Group Members</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">50K+</span>
+                            <div class="metric-label">Email Subscribers</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">346+</span>
+                            <div class="metric-label">First Year Growth</div>
+                        </div>
+                    </div>
+
+                    <p>Supported YouTube growth from 346 subscribers in first year to 80,000+ (hitting 10K in 2019, 50K in 2022). Helped grow Facebook community from 0 to 20,000 members. Established recognizable brand presence that audiences consistently identify and comment on.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Brand Recognition Achievement:</strong> People are familiar with and often comment on our very distinct brand style and how recognizable we are across platforms. The systematic brand management created a cohesive identity that stands out in the crowded contractor education space.</p>
+                    </div>
+
+                    <p><strong>Sustainable Systems Impact:</strong> Created scalable systems for content coordination across podcast, YouTube, social media, and email marketing that allow small team to compete with much larger organizations. The workflows and brand standards continue to support business growth while maintaining quality and consistency.</p>
+
+                    <p><strong>Business Growth Support:</strong> The content operations infrastructure directly supported product launches, coaching program promotions, and overall business development by ensuring consistent, professional presentation across all customer touchpoints.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Tools & Systems</h2>
+                <div class="section-content">
+                    <p><strong>Content Planning & Coordination:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">Quarterly Planning Calendars</span>
+                        <span class="tool-tag">Trello Project Management</span>
+                        <span class="tool-tag">Buffer Scheduling</span>
+                        <span class="tool-tag">ClickUp Coordination</span>
+                    </div>
+
+                    <p><strong>Brand & Asset Management:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">Google Drive Organization</span>
+                        <span class="tool-tag">Brand Style Guides</span>
+                        <span class="tool-tag">Asset Libraries</span>
+                        <span class="tool-tag">Photo Curation Systems</span>
+                    </div>
+
+                    <p><strong>Community & CRM Integration:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">Facebook Group Management</span>
+                        <span class="tool-tag">Google Sheets Tracking</span>
+                        <span class="tool-tag">Ontraport CRM</span>
+                        <span class="tool-tag">Email List Management</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Scale Your Content Operations?</h2>
+            <p class="cta-subtitle">Let's discuss how I can bring systematic content coordination and brand consistency to your growing business.</p>
+            <a href="index.html#contact" class="btn">
+                Start the Conversation
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
