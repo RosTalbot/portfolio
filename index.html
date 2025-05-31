@@ -455,11 +455,15 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.1);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
+            text-decoration: none;
+            color: inherit;
         }
 
         .portfolio-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            text-decoration: none;
+            color: inherit;
         }
 
         .portfolio-image {
@@ -518,6 +522,22 @@
             border-radius: 20px;
             font-size: 0.875rem;
             font-weight: 500;
+        }
+
+        .read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 16px;
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+        }
+
+        .portfolio-card:hover .read-more {
+            gap: 12px;
         }
 
         /* Contact */
@@ -807,9 +827,6 @@
             </div>
         </div>
     </section>
-            </div>
-        </div>
-    </section>
 
     <section id="experience" class="section-gray">
         <div class="container">
@@ -874,105 +891,66 @@
     <section id="portfolio" class="section-light">
         <div class="container">
             <div class="fade-in">
-                <h2 class="section-title">Marketing Operations in Action</h2>
-                <p class="section-subtitle">Real examples of coordinating teams and streamlining processes for consistent results</p>
+                <h2 class="section-title">Featured Case Studies</h2>
+                <p class="section-subtitle">Deep dives into major projects showcasing systematic problem-solving and operational excellence</p>
                 
                 <div class="portfolio-grid">
-                    <div class="portfolio-card">
+                    <a href="podcast-case-study.html" class="portfolio-card">
                         <div class="portfolio-image">
                             <div class="portfolio-icon">🎙️</div>
                         </div>
                         <div class="portfolio-content">
-                            <h3 class="portfolio-title">Remote Team Coordination</h3>
-                            <p class="portfolio-description">Coordinate remote specialists across design, video editing, and development to maintain consistent brand standards and meet tight deadlines across 900+ podcast episodes and ongoing content campaigns.</p>
+                            <h3 class="portfolio-title">Scaling Podcast Production Operations</h3>
+                            <p class="portfolio-description">Transformed chaotic production processes for the industry's longest-running contractor podcast into systematic workflows supporting 900+ episodes and 25K-35K monthly downloads.</p>
                             <div class="portfolio-tags">
-                                <span class="portfolio-tag">Project Management</span>
-                                <span class="portfolio-tag">Remote Teams</span>
-                                <span class="portfolio-tag">Quality Control</span>
                                 <span class="portfolio-tag">Process Optimization</span>
+                                <span class="portfolio-tag">Remote Team Coordination</span>
+                                <span class="portfolio-tag">Quality Control</span>
+                                <span class="portfolio-tag">Industry Leadership</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
                             </div>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="portfolio-card">
-                        <div class="portfolio-image">
-                            <div class="portfolio-icon">📈</div>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3 class="portfolio-title">Content Operations & Workflow</h3>
-                            <p class="portfolio-description">Established streamlined processes that support YouTube channel growth to 80,000+ subscribers by coordinating content planning, production timelines, and cross-platform publishing schedules.</p>
-                            <div class="portfolio-tags">
-                                <span class="portfolio-tag">Workflow Design</span>
-                                <span class="portfolio-tag">Content Planning</span>
-                                <span class="portfolio-tag">Publishing Operations</span>
-                                <span class="portfolio-tag">Platform Management</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card">
+                    <a href="elearning-case-study.html" class="portfolio-card">
                         <div class="portfolio-image">
                             <div class="portfolio-icon">🎓</div>
                         </div>
                         <div class="portfolio-content">
-                            <h3 class="portfolio-title">Learning Platform Coordination</h3>
-                            <p class="portfolio-description">Collaborate with development teams to optimize user experience for online training portals serving 1,000+ contractors, ensuring content is accessible, well-organized, and aligned with learning objectives.</p>
+                            <h3 class="portfolio-title">E-Learning Platform Development</h3>
+                            <p class="portfolio-description">Designed and coordinated development of mobile-first learning platform serving 1,000+ contractors, achieving 500+ sales in 30 days for course launches.</p>
                             <div class="portfolio-tags">
-                                <span class="portfolio-tag">Platform Management</span>
+                                <span class="portfolio-tag">Platform Development</span>
+                                <span class="portfolio-tag">Mobile-First Design</span>
+                                <span class="portfolio-tag">International Team Management</span>
                                 <span class="portfolio-tag">User Experience</span>
-                                <span class="portfolio-tag">Content Organization</span>
-                                <span class="portfolio-tag">Cross-team Collaboration</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
                             </div>
                         </div>
-                    </div>
+                    </a>
 
-                    <div class="portfolio-card">
+                    <a href="content-operations-case-study.html" class="portfolio-card">
                         <div class="portfolio-image">
-                            <div class="portfolio-icon">🚀</div>
+                            <div class="portfolio-icon">📈</div>
                         </div>
                         <div class="portfolio-content">
-                            <h3 class="portfolio-title">Campaign Launch Coordination</h3>
-                            <p class="portfolio-description">Coordinate multi-platform content rollouts supporting paid advertising campaigns across Facebook, Instagram, YouTube, and Google Ads, ensuring consistent messaging and timely delivery across all touchpoints.</p>
+                            <h3 class="portfolio-title">Content Operations at Scale</h3>
+                            <p class="portfolio-description">Built comprehensive content strategy supporting YouTube growth to 80K+ subscribers, 20K Facebook community members, and 50K+ email subscribers through systematic operations.</p>
                             <div class="portfolio-tags">
-                                <span class="portfolio-tag">Launch Management</span>
-                                <span class="portfolio-tag">Multi-Platform</span>
-                                <span class="portfolio-tag">Brand Consistency</span>
-                                <span class="portfolio-tag">Timeline Management</span>
+                                <span class="portfolio-tag">Multi-Platform Growth</span>
+                                <span class="portfolio-tag">Brand Management</span>
+                                <span class="portfolio-tag">Community Building</span>
+                                <span class="portfolio-tag">Scalable Systems</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
                             </div>
                         </div>
-                    </div>
-
-                    <div class="portfolio-card">
-                        <div class="portfolio-image">
-                            <div class="portfolio-icon">⚡</div>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3 class="portfolio-title">Creative Operations & QA</h3>
-                            <p class="portfolio-description">Established systematic creative review processes and asset management workflows that maintained high-quality output across video, graphic, and web content while managing remote design and development teams efficiently.</p>
-                            <div class="portfolio-tags">
-                                <span class="portfolio-tag">Creative Operations</span>
-                                <span class="portfolio-tag">Quality Assurance</span>
-                                <span class="portfolio-tag">Asset Management</span>
-                                <span class="portfolio-tag">Remote Teams</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-card">
-                        <div class="portfolio-image">
-                            <div class="portfolio-icon">🎯</div>
-                        </div>
-                        <div class="portfolio-content">
-                            <h3 class="portfolio-title">Marketing Operations Planning</h3>
-                            <p class="portfolio-description">Plan and execute integrated content calendars that support product launches, webinars, and marketing campaigns, coordinating timelines across teams to ensure all deliverables align with business objectives and deadlines.</p>
-                            <div class="portfolio-tags">
-                                <span class="portfolio-tag">Operations Planning</span>
-                                <span class="portfolio-tag">Launch Coordination</span>
-                                <span class="portfolio-tag">Timeline Management</span>
-                                <span class="portfolio-tag">Cross-functional Collaboration</span>
-                            </div>
-                        </div>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
