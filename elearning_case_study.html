@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Learning Platform Development - Ros Talbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 32px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Content */
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .section-content p {
+            margin-bottom: 24px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .process-steps {
+            display: grid;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .tool-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .challenge-item {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .challenge-item h4 {
+            color: #991b1b;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .challenge-item p {
+            color: #7f1d1d;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .solution-item {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .solution-item h4 {
+            color: #166534;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .solution-item p {
+            color: #14532d;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .cta-section {
+            background: var(--gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title::before {
+                left: 0;
+                top: -12px;
+                width: 100%;
+                height: 4px;
+            }
+
+            .section-title {
+                padding-top: 24px;
+            }
+
+            .challenge-grid,
+            .solution-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-link">
+                    ← Back to Portfolio
+                </a>
+                <h1 class="case-study-title">E-Learning Platform Development</h1>
+                <p class="case-study-subtitle">Transforming disjointed training materials into a cohesive, mobile-first learning experience for contractors who consume content in field environments while balancing accessibility and business conversion goals.</p>
+                <div class="case-study-meta">
+                    <div class="meta-item">🎓 Platform Development</div>
+                    <div class="meta-item">📱 Mobile-First Design</div>
+                    <div class="meta-item">👥 International Team Coordination</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="content-section">
+                <h2 class="section-title">The Challenge</h2>
+                <div class="section-content">
+                    <p>Transform disjointed training materials (inconsistent PDFs, non-mobile-friendly Kajabi content, unbranded videos) into a cohesive learning experience for contractors who consume content on mobile devices in field environments. Needed to balance accessibility for new contractors while driving conversions to higher-value coaching programs.</p>
+                    
+                    <div class="challenge-grid">
+                        <div class="challenge-item">
+                            <h4>Inconsistent Branding</h4>
+                            <p>PDF downloads had various levels of branding and inconsistent colors, fonts, and visual hierarchy across materials.</p>
+                        </div>
+                        <div class="challenge-item">
+                            <h4>Poor Mobile Experience</h4>
+                            <p>Content delivery wasn't mobile-friendly, but our audience largely consumes training in the field on mobile devices.</p>
+                        </div>
+                        <div class="challenge-item">
+                            <h4>No Progress Tracking</h4>
+                            <p>Students had no way to track progress through courses or pick up where they left off.</p>
+                        </div>
+                        <div class="challenge-item">
+                            <h4>Technical Barriers</h4>
+                            <p>Home improvement contractors aren't known for tech savviness - the platform needed to be intuitive and uncluttered.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">My Solution</h2>
+                <div class="section-content">
+                    <p>Designed complete user experience from scratch, creating full page mockups in Canva for WordPress/AccessAlly platform. Developed mobile-first approach optimized for field use with larger navigation, dynamic layouts, and visual-focused design for contractor audience.</p>
+                    
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Created comprehensive UX mockups</h4>
+                                <p>Designed complete course layout from blank white pages in Canva, focusing on clean modern lines, on-brand imagery, and fast-loading mobile-responsive pages.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Coordinated international development team</h4>
+                                <p>Managed Australian development team through detailed Trello workflows with all assets, timelines, and clear communication channels for different time zones.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Developed mobile-first course structure</h4>
+                                <p>Optimized for contractors who watch/listen to content on job sites - larger buttons, fewer images on mobile, visual-focused design with minimal text density.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Coordinated full production pipeline</h4>
+                                <p>Managed 6-10 video course production, created branded worksheets/downloads, designed thumbnails, and oversaw all video edits with final approval authority.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="solution-grid">
+                        <div class="solution-item">
+                            <h4>Cohesive Visual Design</h4>
+                            <p>Established consistent branding across all course materials with proper typography, color schemes, and visual hierarchy.</p>
+                        </div>
+                        <div class="solution-item">
+                            <h4>Mobile Optimization</h4>
+                            <p>Dynamic page layouts with larger navigation elements, optimized images, and touch-friendly interface design.</p>
+                        </div>
+                        <div class="solution-item">
+                            <h4>Clear Navigation</h4>
+                            <p>Predictable lesson progression with obvious customer service access and expert coach highlighting.</p>
+                        </div>
+                        <div class="solution-item">
+                            <h4>Strategic Upselling</h4>
+                            <p>Designed course flow to naturally introduce higher-value coaching programs while solving immediate business problems.</p>
+                        </div>
+                    </div>
+
+                    <p><strong>Technical Implementation:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">WordPress + AccessAlly</span>
+                        <span class="tool-tag">Canva Design Mockups</span>
+                        <span class="tool-tag">Trello Project Management</span>
+                        <span class="tool-tag">Video Production Coordination</span>
+                        <span class="tool-tag">Branded Asset Creation</span>
+                        <span class="tool-tag">International Team Management</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Results & Impact</h2>
+                <div class="section-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-number">4</span>
+                            <div class="metric-label">Courses Launched</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">500+</span>
+                            <div class="metric-label">Sales in 30 Days</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">$150</span>
+                            <div class="metric-label">Average Course Price</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">1000+</span>
+                            <div class="metric-label">Students Educated</div>
+                        </div>
+                    </div>
+
+                    <p>Successfully launched 4 courses averaging $150 price point, with some achieving 500+ sales in first 30 days. Created scalable course development process that supports both accessibility goals and business conversion objectives.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Key Achievement:</strong> Students often pay us the highest compliment - either buying into our higher ticket programs or jumping into another course. The difference between the new system and previous is largely quality of content, appearance of product, and usability of delivery platform.</p>
+                    </div>
+
+                    <p><strong>Student Feedback Highlights:</strong></p>
+                    <ul style="margin: 24px 0; padding-left: 24px;">
+                        <li style="margin-bottom: 12px;">Contractors frequently consume our content while on job sites, making the mobile optimization crucial for real-world usage</li>
+                        <li style="margin-bottom: 12px;">The visual-first approach resonated with our audience who prefer "watching" over "reading" heavy text content</li>
+                        <li style="margin-bottom: 12px;">Clear navigation and progress tracking helped students stay engaged through complete course sequences</li>
+                        <li style="margin-bottom: 12px;">Professional presentation increased perceived value and trust in our expertise</li>
+                    </ul>
+
+                    <p><strong>Business Impact:</strong> The systematic approach to course development and delivery became a template for future educational products. The platform successfully balanced making content accessible to new contractors while strategically introducing higher-value coaching opportunities, supporting overall business growth and student success.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Project Management Insights</h2>
+                <div class="section-content">
+                    <div class="highlight-box">
+                        <p><strong>International Team Coordination:</strong> Working with the Australian development team required detailed documentation and clear communication systems. Time zones meant the developer worked while we slept, making it crucial that he had access to ALL information and files without needing real-time support.</p>
+                    </div>
+
+                    <p>The project taught me valuable lessons about remote team coordination across significant time differences. Success required:</p>
+
+                    <ul style="margin: 24px 0; padding-left: 24px;">
+                        <li style="margin-bottom: 12px;"><strong>Comprehensive Documentation:</strong> Every design decision, asset location, and project requirement needed to be clearly documented and accessible</li>
+                        <li style="margin-bottom: 12px;"><strong>Detailed Mockups:</strong> Creating full visual mockups in Canva eliminated ambiguity about design intentions and reduced back-and-forth communication</li>
+                        <li style="margin-bottom: 12px;"><strong>Structured Communication:</strong> Trello boards with clear task assignments, due dates, and conversation tracking kept the project organized across time zones</li>
+                        <li style="margin-bottom: 12px;"><strong>Asset Management:</strong> Maintaining organized file structures and clear naming conventions ensured the team could find what they needed independently</li>
+                    </ul>
+
+                    <p>This experience reinforced my ability to coordinate complex projects with distributed teams, a skill that's become increasingly valuable in today's remote work environment.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Need Help with Platform Development?</h2>
+            <p class="cta-subtitle">Let's discuss how I can coordinate your next digital learning or platform project.</p>
+            <a href="index.html#contact" class="btn">
+                Start the Conversation
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
