@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scaling Podcast Production Operations - Ros Talbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 32px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Content */
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .section-content p {
+            margin-bottom: 24px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .process-steps {
+            display: grid;
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .process-step {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.125rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .tool-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            background: var(--gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title::before {
+                left: 0;
+                top: -12px;
+                width: 100%;
+                height: 4px;
+            }
+
+            .section-title {
+                padding-top: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-link">
+                    ← Back to Portfolio
+                </a>
+                <h1 class="case-study-title">Scaling Podcast Production Operations</h1>
+                <p class="case-study-subtitle">Transforming production processes for the longest-running, most widely recognized podcast in the contractor space while maintaining industry leadership and scaling to consistent high-quality output.</p>
+                <div class="case-study-meta">
+                    <div class="meta-item">🎙️ Podcast Operations</div>
+                    <div class="meta-item">👥 Remote Team Coordination</div>
+                    <div class="meta-item">📈 Process Optimization</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="content-section">
+                <h2 class="section-title">The Challenge</h2>
+                <div class="section-content">
+                    <p>Transform production processes for the longest-running, most widely recognized podcast in the contractor space. Initial setup had the founder handling all aspects (hosting, production coordination, guest booking, publishing) with inconsistent release schedules and ad-hoc processes that weren't sustainable as the show gained popularity and industry recognition.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>The Reality:</strong> We had a charismatic host and excellent content, but the operational foundation couldn't support our industry-leading position. Episodes were released whenever we had one ready - weekly, monthly, or sometimes 5 episodes in a week with no consistency.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">My Approach</h2>
+                <div class="section-content">
+                    <p>I systematically built dedicated workflows to support the show's industry-leading status, focusing on creating predictable, repeatable processes that could scale with our growth.</p>
+                    
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Removed founder from production pipeline</h4>
+                                <p>Created clear separation between content creation and operational execution, allowing the host to focus on what he did best while I handled the systematic coordination.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Established quarterly planning process</h4>
+                                <p>Developed content calendars that aligned with marketing campaigns and product launches, recording one quarter of content at a time for better preparation and quality control.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Built comprehensive team coordination system</h4>
+                                <p>Coordinated team of 10+ freelancers across recording, editing, graphics, and promotion using structured workflows and clear deliverable timelines.</p>
+                            </div>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Implemented systematic quality control</h4>
+                                <p>Created guest vetting guidelines, brand consistency standards, and review processes that maintained our professional reputation while scaling production.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p><strong>Tools & Systems Implemented:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">Trello for project tracking</span>
+                        <span class="tool-tag">Frame.io for video asset management</span>
+                        <span class="tool-tag">Email workflows (30K+ subscribers)</span>
+                        <span class="tool-tag">Social media coordination</span>
+                        <span class="tool-tag">Quarterly content planning</span>
+                        <span class="tool-tag">Guest vetting processes</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Results & Impact</h2>
+                <div class="section-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-number">900+</span>
+                            <div class="metric-label">Episodes Produced</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">32+</span>
+                            <div class="metric-label">Episodes Per Quarter</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">25K-35K</span>
+                            <div class="metric-label">Monthly Downloads</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">1.5K-5K</span>
+                            <div class="metric-label">Video Views Per Episode</div>
+                        </div>
+                    </div>
+
+                    <p>Maintained position as industry leader while scaling to consistent production of 32+ episodes per quarter with 25K-35K monthly downloads and 1,500-5,000 video views per episode. Show continues to appear on "best contractor podcasts" lists while delivering predictable, high-quality content through repeatable processes.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Key Achievement:</strong> Transformed a chaotic, founder-dependent process into a scalable operation that maintains industry leadership while delivering consistent quality. The podcast went from unpredictable releases to a systematic production machine that supports our business objectives.</p>
+                    </div>
+
+                    <p><strong>Long-term Impact:</strong> The systematic approach I developed allowed us to maintain our industry-leading position while the founder could focus on content and business development. Our workflows became the foundation for expanding into video content and social media amplification, supporting overall business growth.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Systematize Your Operations?</h2>
+            <p class="cta-subtitle">Let's discuss how I can bring this same operational excellence to your marketing team.</p>
+            <a href="index.html#contact" class="btn">
+                Start the Conversation
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
