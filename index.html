@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ros Talbot - Marketing Operations Specialist</title>
+    <title>Ros Talbot - Creative Project Manager</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32'%3E%3Cdefs%3E%3ClinearGradient id='gradient' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23667eea;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23764ba2;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23gradient)'/%3E%3Ctext x='16' y='22' font-family='Inter, sans-serif' font-size='14' font-weight='800' text-anchor='middle' fill='white'%3ERT%3C/text%3E%3C/svg%3E">
     <script defer src="https://cdn.vercel-insights.com/v1/script.debug.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -541,6 +542,71 @@
             gap: 12px;
         }
 
+        /* Visual Portfolio Section */
+        .visual-portfolio {
+            background: var(--gray);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .gallery-item {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.15);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-light);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .gallery-content {
+            padding: 20px;
+        }
+
+        .gallery-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .gallery-description {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .gallery-category {
+            display: inline-block;
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
         /* Contact */
         .contact {
             background: var(--dark);
@@ -689,6 +755,10 @@
             .contact-form {
                 padding: 32px 24px;
             }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -701,6 +771,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#portfolio">Work</a></li>
+            <li><a href="#visuals">Visuals</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
@@ -714,9 +785,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="header-text">
-                    <div class="eyebrow">Marketing Operations Specialist</div>
+                    <div class="eyebrow">Creative Project Manager</div>
                     <h1>Hi, I'm <span class="gradient-text">Ros</span></h1>
-                    <p class="subtitle">I coordinate cross-functional marketing teams and streamline content production to deliver consistent, high-quality campaigns across multiple platforms.</p>
+                    <p class="subtitle">I orchestrate creative workflows and coordinate cross-functional teams to deliver consistent, high-quality campaigns across multiple platforms.</p>
                     <div class="cta-group">
                         <a href="#portfolio" class="btn btn-primary">
                             View My Work
@@ -736,21 +807,21 @@
         <div class="container">
             <div class="about-grid fade-in">
                 <div>
-                    <h2 class="section-title">Operations-Focused Marketing Professional</h2>
-                    <p class="section-subtitle">9 years of coordinating remote teams and streamlining content workflows</p>
+                    <h2 class="section-title">Creative Operations & Project Coordination Expert</h2>
+                    <p class="section-subtitle">9 years orchestrating creative teams and streamlining production workflows</p>
                     <div class="about-text">
-                        <p>I specialize in being the central hub that makes marketing campaigns actually happen. My strength lies in coordinating remote specialists, managing complex project timelines, and ensuring all the moving pieces come together seamlessly across platforms.</p>
+                        <p>I specialize in being the central hub that makes creative campaigns actually happen. My strength lies in coordinating remote creative specialists, managing complex production timelines, and ensuring all the moving pieces come together seamlessly across platforms while maintaining brand consistency and quality standards.</p>
                         
-                        <p>Starting as one of the first hires at a bootstrapped startup (just the founder, one marketing specialist, and me), I began handling everything from admin and basic web development to customer service. As the company grew, my role naturally evolved into marketing operations, where I learned to be resourceful, build scalable processes, and deliver professional results with startup budgets.</p>
+                        <p>Starting as one of the first hires at a bootstrapped startup (just the founder, one marketing specialist, and me), I evolved from handling everything—admin, basic web development, customer service—into specialized creative project coordination. This background taught me to be resourceful, build scalable creative processes, and deliver professional results with startup budgets.</p>
                         
-                        <p>This background taught me to thrive in fast-paced, resource-conscious environments where everyone wears multiple hats. I've built systems and workflows that allow small teams to compete with much larger organizations, always focusing on efficiency, quality, and sustainable growth.</p>
+                        <p>I thrive in fast-paced, creative environments where projects require coordination across multiple specialists—designers, editors, developers, copywriters. I've built systematic workflows that allow small creative teams to compete with much larger agencies, always focusing on efficiency, brand consistency, and sustainable creative production.</p>
                     </div>
                     
                     <div class="skills-grid">
-                        <div class="skill-item">Project Coordination</div>
+                        <div class="skill-item">Creative Project Coordination</div>
                         <div class="skill-item">Remote Team Management</div>
-                        <div class="skill-item">Content Operations</div>
-                        <div class="skill-item">Process Optimization</div>
+                        <div class="skill-item">Production Workflow Design</div>
+                        <div class="skill-item">Brand Consistency Management</div>
                         <div class="skill-item">Quality Assurance</div>
                         <div class="skill-item">Multi-Platform Publishing</div>
                     </div>
@@ -759,19 +830,19 @@
                 <div class="stats-container">
                     <div class="stat-card">
                         <span class="stat-number">900+</span>
-                        <div class="stat-label">Podcast Episodes Produced</div>
+                        <div class="stat-label">Creative Projects Coordinated</div>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">15+</span>
+                        <div class="stat-label">Remote Specialists Managed</div>
                     </div>
                     <div class="stat-card">
                         <span class="stat-number">80K+</span>
-                        <div class="stat-label">YouTube Subscribers Grown</div>
-                    </div>
-                    <div class="stat-card">
-                        <span class="stat-number">1000+</span>
-                        <div class="stat-label">Students Educated</div>
+                        <div class="stat-label">Community Growth Supported</div>
                     </div>
                     <div class="stat-card">
                         <span class="stat-number">9</span>
-                        <div class="stat-label">Years of Excellence</div>
+                        <div class="stat-label">Years of Creative Excellence</div>
                     </div>
                 </div>
             </div>
@@ -781,47 +852,47 @@
     <section class="section-gray">
         <div class="container">
             <div class="fade-in">
-                <h2 class="section-title">Tools & Platforms</h2>
-                <p class="section-subtitle">Technical skills and software expertise developed through hands-on experience</p>
+                <h2 class="section-title">Tools & Creative Systems</h2>
+                <p class="section-subtitle">Technical skills and creative coordination expertise developed through hands-on project management</p>
                 
                 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto;">
                     <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Content & Creative</h3>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Creative & Design Coordination</h3>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Canva</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">YouTube Studio</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Vimeo</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Podcast Platforms</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Adobe Creative Suite</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Canva Pro</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Frame.io</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Figma</div>
                         </div>
                     </div>
                     
                     <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Web & Platforms</h3>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Platform & Content Management</h3>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">WordPress</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">AccessAlly</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">YouTube Studio</div>
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Shopify</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Basic HTML/CSS</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">AccessAlly</div>
                         </div>
                     </div>
                     
                     <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Marketing & Automation</h3>
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Project Management & Coordination</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">ClickUp</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Trello</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Asana</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Slack</div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Marketing & Brand Management</h3>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Ontraport</div>
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Meta Business Suite</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Ads</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Email Marketing</div>
-                        </div>
-                    </div>
-                    
-                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Project Management</h3>
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Slack</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Trello</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Drive</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Process Documentation</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Workspace</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Brand Asset Management</div>
                         </div>
                     </div>
                 </div>
@@ -829,17 +900,17 @@
         </div>
     </section>
 
-    <section id="experience" class="section-gray">
+    <section id="experience" class="section-light">
         <div class="container">
             <div class="fade-in">
-                <h2 class="section-title">Coordinating Success Across Teams & Platforms</h2>
-                <p class="section-subtitle">Proven track record of managing complex marketing operations in remote environments</p>
+                <h2 class="section-title">Coordinating Creative Excellence Across Teams & Platforms</h2>
+                <p class="section-subtitle">Proven track record of managing complex creative operations in distributed team environments</p>
                 
                 <div class="experience-timeline">
                     <div class="timeline-item">
                         <div class="timeline-header">
                             <div class="job-info">
-                                <h3>Marketing Launch Manager</h3>
+                                <h3>Creative Project Manager & Launch Lead</h3>
                                 <div class="company">The Contractor Fight</div>
                             </div>
                             <div class="duration">2016 - Present</div>
@@ -847,40 +918,40 @@
                         
                         <ul class="achievements">
                             <li class="achievement-item">
-                                <div class="achievement-icon">🚀</div>
-                                <div>Grew with startup from early-stage (3-person team) to established company, evolving from general operations to specialized marketing coordination role</div>
-                            </li>
-                            <li class="achievement-item">
-                                <div class="achievement-icon">🎯</div>
-                                <div>Coordinate content production across video, podcast, and social platforms, serving as central point of contact for all marketing deliverables</div>
+                                <div class="achievement-icon">🎨</div>
+                                <div>Orchestrate creative workflows across video, podcast, social media, and e-learning platforms, serving as central coordination point for all creative deliverables and brand consistency</div>
                             </li>
                             <li class="achievement-item">
                                 <div class="achievement-icon">👥</div>
-                                <div>Manage relationships with remote specialists (designers, video editors, developers) to ensure timely, on-brand delivery of marketing assets</div>
+                                <div>Manage distributed team of 15+ creative specialists (designers, video editors, developers, copywriters) across multiple time zones with systematic project coordination</div>
                             </li>
                             <li class="achievement-item">
-                                <div class="achievement-icon">🎙️</div>
-                                <div>Oversee production pipeline for 900+ podcast episodes, maintaining quality standards and publishing schedules</div>
+                                <div class="achievement-icon">🚀</div>
+                                <div>Lead end-to-end campaign coordination for product launches, course releases, and marketing initiatives from creative brief through final delivery and performance analysis</div>
                             </li>
                             <li class="achievement-item">
                                 <div class="achievement-icon">📈</div>
-                                <div>Support content strategy that contributed to YouTube channel growth to 80,000+ subscribers in contractor education niche</div>
+                                <div>Designed and implemented creative production pipeline supporting 900+ podcast episodes, maintaining quality standards while scaling output and consistency</div>
                             </li>
                             <li class="achievement-item">
                                 <div class="achievement-icon">🎓</div>
-                                <div>Collaborate with development team to optimize online learning experiences, supporting education of 1,000+ contractors</div>
+                                <div>Coordinated UX design and development of mobile-first learning platforms, working with international development teams to deliver courses serving 1,000+ students</div>
                             </li>
                             <li class="achievement-item">
-                                <div class="achievement-icon">📅</div>
-                                <div>Plan and execute content calendars aligned with product launches, webinars, and marketing campaigns</div>
+                                <div class="achievement-icon">🏆</div>
+                                <div>Established brand management systems supporting community growth to 80K+ YouTube subscribers through consistent creative standards and quality control processes</div>
                             </li>
                             <li class="achievement-item">
                                 <div class="achievement-icon">⚡</div>
-                                <div>Built scalable processes and workflows that allow small team to deliver professional-quality marketing campaigns consistently</div>
+                                <div>Built scalable creative workflows enabling small team to deliver agency-quality campaigns while maintaining brand integrity across all customer touchpoints</div>
+                            </li>
+                            <li class="achievement-item">
+                                <div class="achievement-icon">🎯</div>
+                                <div>Coordinate quarterly creative planning sessions, aligning creative strategy with business objectives and managing resource allocation across multiple concurrent projects</div>
                             </li>
                             <li class="achievement-item">
                                 <div class="achievement-icon">🛍️</div>
-                                <div>Manage e-commerce operations including branded merchandise design, Shopify storefront management, and print-on-demand fulfillment coordination</div>
+                                <div>Oversee creative direction for e-commerce initiatives including branded merchandise design, packaging coordination, and Shopify storefront optimization</div>
                             </li>
                         </ul>
                     </div>
@@ -889,11 +960,11 @@
         </div>
     </section>
 
-    <section id="portfolio" class="section-light">
+    <section id="portfolio" class="section-gray">
         <div class="container">
             <div class="fade-in">
                 <h2 class="section-title">Featured Case Studies</h2>
-                <p class="section-subtitle">Deep dives into major projects showcasing systematic problem-solving and operational excellence</p>
+                <p class="section-subtitle">Deep dives into major creative projects showcasing systematic problem-solving and operational excellence</p>
                 
                 <div class="portfolio-grid">
                     <a href="podcast-case-study.html" class="portfolio-card">
@@ -904,10 +975,10 @@
                             <h3 class="portfolio-title">Scaling Podcast Production Operations</h3>
                             <p class="portfolio-description">Transformed chaotic production processes for the industry's longest-running contractor podcast into systematic workflows supporting 900+ episodes and 25K-35K monthly downloads.</p>
                             <div class="portfolio-tags">
+                                <span class="portfolio-tag">Creative Coordination</span>
+                                <span class="portfolio-tag">Team Management</span>
                                 <span class="portfolio-tag">Process Optimization</span>
-                                <span class="portfolio-tag">Remote Team Coordination</span>
                                 <span class="portfolio-tag">Quality Control</span>
-                                <span class="portfolio-tag">Industry Leadership</span>
                             </div>
                             <div class="read-more">
                                 Read Full Case Study →
@@ -923,10 +994,10 @@
                             <h3 class="portfolio-title">E-Learning Platform Development</h3>
                             <p class="portfolio-description">Designed and coordinated development of mobile-first learning platform serving 1,000+ contractors, achieving 500+ sales in 30 days for course launches.</p>
                             <div class="portfolio-tags">
+                                <span class="portfolio-tag">UX Coordination</span>
+                                <span class="portfolio-tag">International Teams</span>
                                 <span class="portfolio-tag">Platform Development</span>
-                                <span class="portfolio-tag">Mobile-First Design</span>
-                                <span class="portfolio-tag">International Team Management</span>
-                                <span class="portfolio-tag">User Experience</span>
+                                <span class="portfolio-tag">Creative Direction</span>
                             </div>
                             <div class="read-more">
                                 Read Full Case Study →
@@ -940,11 +1011,11 @@
                         </div>
                         <div class="portfolio-content">
                             <h3 class="portfolio-title">Content Operations at Scale</h3>
-                            <p class="portfolio-description">Built comprehensive content strategy supporting YouTube growth to 80K+ subscribers, 20K Facebook community members, and 50K+ email subscribers through systematic operations.</p>
+                            <p class="portfolio-description">Built comprehensive creative strategy supporting YouTube growth to 80K+ subscribers, 20K Facebook community members, and 50K+ email subscribers through systematic operations.</p>
                             <div class="portfolio-tags">
-                                <span class="portfolio-tag">Multi-Platform Growth</span>
+                                <span class="portfolio-tag">Creative Strategy</span>
                                 <span class="portfolio-tag">Brand Management</span>
-                                <span class="portfolio-tag">Community Building</span>
+                                <span class="portfolio-tag">Multi-Platform Coordination</span>
                                 <span class="portfolio-tag">Scalable Systems</span>
                             </div>
                             <div class="read-more">
@@ -957,11 +1028,88 @@
         </div>
     </section>
 
+    <section id="visuals" class="visual-portfolio">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="section-title">Visual Work & Creative Assets</h2>
+                <p class="section-subtitle">Examples of UX design, brand assets, and creative materials I've coordinated and created</p>
+                
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            UX Design Screenshot Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">UX Design</div>
+                            <h4 class="gallery-title">Training Platform Interface</h4>
+                            <p class="gallery-description">Mobile-first course platform design with intuitive navigation and progress tracking for field-based contractors.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            UX Design Screenshot Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">UX Design</div>
+                            <h4 class="gallery-title">Course Delivery Pages</h4>
+                            <p class="gallery-description">Clean, distraction-free learning environment optimized for video consumption and worksheet downloads.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            UX Design Screenshot Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">UX Design</div>
+                            <h4 class="gallery-title">Student Dashboard</h4>
+                            <p class="gallery-description">Progress tracking and course navigation system designed for contractors with varying technical comfort levels.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            Brand Asset Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">Brand Assets</div>
+                            <h4 class="gallery-title">Social Media Graphics</h4>
+                            <p class="gallery-description">Instagram posts and Facebook banners maintaining brand consistency across platforms.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            Creative Asset Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">Creative Direction</div>
+                            <h4 class="gallery-title">Campaign Materials</h4>
+                            <p class="gallery-description">Coordinated creative assets for product launches and marketing campaigns.</p>
+                        </div>
+                    </div>
+
+                    <div class="gallery-item">
+                        <div class="gallery-image">
+                            Process Visual Coming Soon
+                        </div>
+                        <div class="gallery-content">
+                            <div class="gallery-category">Process Design</div>
+                            <h4 class="gallery-title">Workflow Diagrams</h4>
+                            <p class="gallery-description">Visual process documentation for creative team coordination and project management.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contact" class="contact">
         <div class="container">
             <div class="fade-in">
-                <h2 class="section-title">Let's Talk About Your Next Project</h2>
-                <p class="section-subtitle">Ready to bring organization, efficiency, and reliable execution to your marketing operations team.</p>
+                <h2 class="section-title">Let's Talk About Your Next Creative Project</h2>
+                <p class="section-subtitle">Ready to bring systematic coordination, creative excellence, and reliable execution to your team.</p>
                 
                 <div class="contact-form">
                     <form>
@@ -979,7 +1127,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message">Project Details</label>
-                            <textarea id="message" name="message" placeholder="Tell me about your vision, challenges, or the impact you're looking to create..." required></textarea>
+                            <textarea id="message" name="message" placeholder="Tell me about your creative challenges, team coordination needs, or the impact you're looking to create..." required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary" style="width: 100%;">
                             Start the Conversation
@@ -1034,7 +1182,7 @@
         animateRing();
 
         // Hover effects for interactive elements
-        const interactiveElements = document.querySelectorAll('a, button, .portfolio-card, .stat-card, .timeline-item');
+        const interactiveElements = document.querySelectorAll('a, button, .portfolio-card, .stat-card, .timeline-item, .gallery-item');
         
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => {
@@ -1122,8 +1270,8 @@
             const data = Object.fromEntries(formData);
             
             // Create mailto link
-            const subject = encodeURIComponent(`New Project Inquiry from ${data.name}`);
-            const body = encodeURIComponent(`Hi Roslyn,
+            const subject = encodeURIComponent(`New Creative Project Inquiry from ${data.name}`);
+            const body = encodeURIComponent(`Hi Ros,
 
 ${data.message}
 
@@ -1134,6 +1282,14 @@ ${data.company ? `\n${data.company}` : ''}`);
             
             const mailtoLink = `mailto:ros.talbot@gmail.com?subject=${subject}&body=${body}`;
             window.location.href = mailtoLink;
+        });
+
+        // Gallery modal functionality (placeholder for when images are added)
+        document.querySelectorAll('.gallery-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Future: implement modal/lightbox for full-size image viewing
+                console.log('Gallery item clicked - modal functionality coming when images are added');
+            });
         });
 
         // Add some performance optimizations
