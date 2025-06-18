@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="https://cdn.vercel-insights.com/v1/script.js"></script>
+    <title>Team Coordination & Remote Management - Ros Talbot</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        .header {
+            background: var(--dark);
+            color: white;
+            padding: 80px 0 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-bottom: 32px;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.1;
+            color: #ffffff;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        .case-study-meta {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Content */
+        .content {
+            padding: 80px 0;
+        }
+
+        .content-section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .section-title::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-content {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            max-width: 800px;
+        }
+
+        .section-content p {
+            margin-bottom: 24px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            border-radius: 16px;
+            padding: 32px;
+            margin: 40px 0;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .metric-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-weight: 600;
+            color: var(--text-light);
+            font-size: 0.875rem;
+        }
+
+        .phase-timeline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .phase-item {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .phase-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 16px 16px 0 0;
+        }
+
+        .phase-item h4 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--text);
+        }
+
+        .phase-item p {
+            color: var(--text-light);
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .result-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+        }
+
+        .result-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .result-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .result-card li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+            color: var(--text-light);
+            line-height: 1.5;
+        }
+
+        .result-card li::before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .tools-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 24px 0;
+        }
+
+        .tool-tag {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .cta-section {
+            background: var(--gray);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 25px 50px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title::before {
+                left: 0;
+                top: -12px;
+                width: 100%;
+                height: 4px;
+            }
+
+            .section-title {
+                padding-top: 24px;
+            }
+
+            .metrics-grid,
+            .results-grid,
+            .phase-timeline {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-bg"></div>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="back-link">
+                    ← Back to Portfolio
+                </a>
+                <h1 class="case-study-title">Team Coordination & Remote Management</h1>
+                <p class="case-study-subtitle">Crisis campaign coordination across international distributed team, managing contractors across four countries and multiple time zones while executing complex multi-phase campaign under extreme time pressure.</p>
+                <div class="case-study-meta">
+                    <div class="meta-item">🌍 International Team</div>
+                    <div class="meta-item">⚡ Crisis Management</div>
+                    <div class="meta-item">📈 $117K Campaign Success</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <section class="content-section">
+                <h2 class="section-title">The Challenge</h2>
+                <div class="section-content">
+                    <p>When the company faced urgent revenue targets requiring $100K in sales within 90 days to maintain operational stability, the marketing team needed to coordinate a comprehensive campaign while continuing all regular business operations.</p>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Crisis Context:</strong> The company required this revenue to survive as an organization. The marketing team was given 90 days to generate results that would determine whether the business could continue operating. This wasn't just a growth target—it was a survival requirement.</p>
+                    </div>
+
+                    <p>The challenge involved managing a distributed team across four countries and multiple time zones, coordinating both internal team members and external vendors, and executing a complex multi-phase campaign under extreme time pressure. Team members had varying comfort levels with collaboration tools, from seasoned executives who preferred traditional communication methods to contractors who needed training on systematic workflow adoption.</p>
+
+                    <p><strong>Distributed Team Complexity:</strong> Contractors across the United States from coast to coast, media coordinator in Canada, web and marketing consultant in Australia, plus external creative vendors through the Flocksy platform.</p>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Strategic Solution</h2>
+                <div class="section-content">
+                    <p>Building on previously established coordination systems, I adapted our workflows to meet crisis timeline demands while maintaining team cohesion across multiple time zones and platforms.</p>
+                    
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <h4>🔍 Strategic Market Research Coordination</h4>
+                            <ul>
+                                <li>Coordinated multi-source intelligence gathering across 20K member community analysis</li>
+                                <li>Systematically analyzed historical content performance data</li>
+                                <li>Collaborated with copywriter and CEO to synthesize research into revised messaging</li>
+                                <li>Targeted messaging refinement for beginner contractor audience</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-card">
+                            <h4>🎯 Multi-Platform Campaign Management</h4>
+                            <ul>
+                                <li>Built cause marketing campaign around virtual workshop series</li>
+                                <li>Designed tiered pricing structure ($15/$50/$500) for prospect segmentation</li>
+                                <li>Coordinated content creation across email, social, sales pages, and video ads</li>
+                                <li>All proceeds donated to Wounded Warrior Project for audience resonance</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-card">
+                            <h4>⚡ Rapid Content Production Coordination</h4>
+                            <ul>
+                                <li>Pivoted existing podcast schedule to create supporting 5-day series</li>
+                                <li>Coordinated St. Louis video team with Colorado-based founder</li>
+                                <li>Utilized established "one-click" studio setup for emergency content</li>
+                                <li>Managed slide deck production through external Flocksy designers</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-card">
+                            <h4>🌐 International Team Communication</h4>
+                            <ul>
+                                <li>Shifted from formal Trello workflows to rapid Slack huddles</li>
+                                <li>Maintained standard Tuesday marketing huddles for Australia team member</li>
+                                <li>Used Google Docs collaboration for crisis-speed execution</li>
+                                <li>Ensured clear communication across all time zones</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Campaign Implementation</h2>
+                <div class="section-content">
+                    <p>The campaign required adaptation of established systematic processes to meet compressed timelines while maintaining quality standards. I coordinated the team through a strategic 32-day timeline:</p>
+
+                    <div class="phase-timeline">
+                        <div class="phase-item">
+                            <h4>Phase 1: Research & Messaging</h4>
+                            <p><strong>April 28-May 11</strong><br>Market research and messaging optimization based on community analysis and historical performance data.</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 2: Content Production</h4>
+                            <p><strong>May 12-19</strong><br>Podcast series coordination and production using established studio setup and distributed team.</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 3: Workshop Execution</h4>
+                            <p><strong>May 20-22</strong><br>Live workshop execution with 90% attendance rate among 279 registrants.</p>
+                        </div>
+                        <div class="phase-item">
+                            <h4>Phase 4: Sales Conversion</h4>
+                            <p><strong>May 22-30</strong><br>Sales conversion and enrollment coordination following workshop series completion.</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <p><strong>Operational Excellence:</strong> Throughout all phases, I maintained regular operational responsibilities including audio podcast production, guest vetting and selection, social media posting, and community engagement, ensuring business-as-usual operations continued seamlessly alongside crisis campaign execution.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Results & Impact</h2>
+                <div class="section-content">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <span class="metric-number">$117K</span>
+                            <div class="metric-label">Coaching Program Sales</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">117%</span>
+                            <div class="metric-label">Target Achievement</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">90%</span>
+                            <div class="metric-label">Workshop Attendance Rate</div>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-number">$14.8K</span>
+                            <div class="metric-label">Charity Funds Raised</div>
+                        </div>
+                    </div>
+
+                    <p><strong>Campaign Success Metrics:</strong> Generated $117,302 in coaching program sales, exceeding the $100K target by 17%. Achieved 90% attendance rate among 279 virtual workshop registrants (a record for our company). Raised $7,400 for Wounded Warrior Project, doubled to $14,800 through a colleague business matching donation.</p>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <h4>Team Performance Under Pressure</h4>
+                            <ul>
+                                <li>Small agile team pivoted quickly without losing coordination</li>
+                                <li>Established workflows meant team understood next steps without constant direction</li>
+                                <li>Brand-trained external designers needed minimal revisions despite compressed timeline</li>
+                                <li>Technical infrastructure enabled high-quality content production without additional crew</li>
+                            </ul>
+                        </div>
+
+                        <div class="result-card">
+                            <h4>Operational Excellence</h4>
+                            <ul>
+                                <li>Maintained all regular business operations during complex crisis campaign</li>
+                                <li>Adapted communication tools strategically for speed while preserving coordination</li>
+                                <li>Successfully managed both internal team members and external vendor relationships</li>
+                                <li>Demonstrated capacity to coordinate multiple workstreams across international time zones</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <h2 class="section-title">Strategic Impact</h2>
+                <div class="section-content">
+                    <p>This crisis coordination showed the strength of systematic processes and team training we'd invested in over time. The team's ability to maintain quality output under extreme pressure proved that our coordination systems had become robust enough to handle exceptional circumstances while keeping regular operations running smoothly.</p>
+
+                    <div class="highlight-box">
+                        <p><strong>Foundation Validation:</strong> The campaign's success validated the strategic approach to international team management, flexible process adaptation, and multi-vendor coordination. Most importantly, it demonstrated the value of building systematic operational foundations that enable teams to perform exceptionally when business continuity depends on flawless execution.</p>
+                    </div>
+
+                    <p><strong>Key Competencies Demonstrated:</strong></p>
+                    <div class="tools-list">
+                        <span class="tool-tag">Crisis Leadership</span>
+                        <span class="tool-tag">International Team Management</span>
+                        <span class="tool-tag">Multi-Platform Campaign Coordination</span>
+                        <span class="tool-tag">Vendor Management</span>
+                        <span class="tool-tag">Adaptive Process Management</span>
+                        <span class="tool-tag">Strategic Capacity Management</span>
+                        <span class="tool-tag">Cross-Functional Collaboration</span>
+                        <span class="tool-tag">High-Stress Communication</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready for Crisis-Level Project Coordination?</h2>
+            <p class="cta-subtitle">Let's discuss how I can bring systematic team coordination and crisis management expertise to your organization.</p>
+            <a href="index.html#contact" class="btn">
+                Start the Conversation
+                <span>→</span>
+            </a>
+        </div>
+    </section>
+</body>
+</html>
