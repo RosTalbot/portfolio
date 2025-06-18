@@ -450,6 +450,15 @@
             gap: 32px;
         }
 
+        /* Force 2x2 layout on larger screens for portfolio */
+        @media (min-width: 900px) {
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+                max-width: 1000px;
+                margin: 0 auto;
+            }
+        }
+
         .portfolio-card {
             background: white;
             border-radius: 24px;
@@ -855,13 +864,10 @@
                 <h2 class="section-title">Tools & Creative Systems</h2>
                 <p class="section-subtitle">Technical skills and creative coordination expertise developed through hands-on project management</p>
                 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1000px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto;">
                     <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
                         <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Creative & Design Coordination</h3>
                         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Adobe Creative Suite</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Canva Pro</div>
-                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Frame.io</div>
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Figma</div>
                         </div>
                     </div>
@@ -893,6 +899,42 @@
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Meta Business Suite</div>
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Google Workspace</div>
                             <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Brand Asset Management</div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Video & Audio Production</h3>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Loom</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Podcast Platforms</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Video Coordination</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Audio Production</div>
+                        </div>
+                    </div>
+
+                    <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border: 1px solid rgba(102, 126, 234, 0.2);">
+                        <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 24px; color: #1e293b;">Professional Certifications</h3>
+                        <div style="display: flex; flex-direction: column; gap: 12px;">
+                            <div style="background: rgba(255,255,255,0.8); padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">
+                                <div style="font-weight: 600; margin-bottom: 2px;">Scrum Fundamentals Certified (SFC)</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">SCRUMstudy • ID: 1084842 • Jun 2025</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.8); padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">
+                                <div style="font-weight: 600; margin-bottom: 2px;">Asana Workflow Specialist</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Asana • ID: 149937519 • Jun 2025</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.8); padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">
+                                <div style="font-weight: 600; margin-bottom: 2px;">Google Digital Marketing & E-commerce</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Google • ID: EX0QGH10CE9M • Jan 2025</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.8); padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">
+                                <div style="font-weight: 600; margin-bottom: 2px;">Learn HTML Course</div>
+                                <div style="font-size: 0.75rem; color: #64748b;">Codecademy • Aug 2023</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.6); padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500; border: 1px dashed rgba(102, 126, 234, 0.3);">
+                                <div style="font-weight: 600; margin-bottom: 2px; font-style: italic;">Agile Project Management</div>
+                                <div style="font-size: 0.75rem; color: #64748b; font-style: italic;">Google/Coursera • In Progress</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -960,91 +1002,92 @@
         </div>
     </section>
 
+    <section id="portfolio" class="section-gray">
+        <div class="container">
+            <div class="fade-in">
+                <h2 class="section-title">Featured Case Studies</h2>
+                <p class="section-subtitle">Deep dives into major creative projects showcasing systematic problem-solving and operational excellence</p>
+                
+                <div class="portfolio-grid">
+                    <a href="content-operations-case-study.html" class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">📈</div>
+                        </div>
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Content Operations at Scale</h3>
+                            <p class="portfolio-description">Built comprehensive creative strategy supporting YouTube growth to 80K+ subscribers, 20K Facebook community members, and 50K+ email subscribers through systematic operations.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Creative Strategy</span>
+                                <span class="portfolio-tag">Brand Management</span>
+                                <span class="portfolio-tag">Multi-Platform Coordination</span>
+                                <span class="portfolio-tag">Scalable Systems</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
+                            </div>
+                        </div>
+                    </a>
 
-<!-- Replace the existing portfolio section with this -->
-<section id="portfolio" class="section-gray">
-    <div class="container">
-        <div class="fade-in">
-            <h2 class="section-title">Featured Case Studies</h2>
-            <p class="section-subtitle">Deep dives into major creative projects showcasing systematic problem-solving and operational excellence</p>
-            
-            <div class="portfolio-grid">
-                <a href="content-operations-case-study.html" class="portfolio-card">
-                    <div class="portfolio-image">
-                        <div class="portfolio-icon">📈</div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Content Operations at Scale</h3>
-                        <p class="portfolio-description">Built comprehensive creative strategy supporting YouTube growth to 80K+ subscribers, 20K Facebook community members, and 50K+ email subscribers through systematic operations.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Creative Strategy</span>
-                            <span class="portfolio-tag">Brand Management</span>
-                            <span class="portfolio-tag">Multi-Platform Coordination</span>
-                            <span class="portfolio-tag">Scalable Systems</span>
+                    <a href="youtube-workflow-case-study.html" class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🎥</div>
                         </div>
-                        <div class="read-more">
-                            Read Full Case Study →
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Systematic YouTube Content Production</h3>
+                            <p class="portfolio-description">Transformed amateur content creation into professional workflow with 6-phase systematic process, enabling quarterly planning and consistent release schedules.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Workflow Design</span>
+                                <span class="portfolio-tag">Team Coordination</span>
+                                <span class="portfolio-tag">Process Optimization</span>
+                                <span class="portfolio-tag">Quality Control</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="youtube-workflow-case-study.html" class="portfolio-card">
-                    <div class="portfolio-image">
-                        <div class="portfolio-icon">🎥</div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Systematic YouTube Content Production</h3>
-                        <p class="portfolio-description">Transformed amateur content creation into professional workflow with 6-phase systematic process, enabling quarterly planning and consistent release schedules.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Workflow Design</span>
-                            <span class="portfolio-tag">Team Coordination</span>
-                            <span class="portfolio-tag">Process Optimization</span>
-                            <span class="portfolio-tag">Quality Control</span>
+                    <a href="podcast-case-study.html" class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">🎙️</div>
                         </div>
-                        <div class="read-more">
-                            Read Full Case Study →
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Scaling Podcast Production Operations</h3>
+                            <p class="portfolio-description">Transformed chaotic production processes for the industry's longest-running contractor podcast into systematic workflows supporting 900+ episodes and 25K-35K monthly downloads.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Creative Coordination</span>
+                                <span class="portfolio-tag">Team Management</span>
+                                <span class="portfolio-tag">Process Optimization</span>
+                                <span class="portfolio-tag">Quality Control</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
+                            </div>
                         </div>
-                    </div>
-                </a>
+                    </a>
 
-                <a href="podcast-case-study.html" class="portfolio-card">
-                    <div class="portfolio-image">
-                        <div class="portfolio-icon">🎙️</div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Scaling Podcast Production Operations</h3>
-                        <p class="portfolio-description">Transformed chaotic production processes for the industry's longest-running contractor podcast into systematic workflows supporting 900+ episodes and 25K-35K monthly downloads.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Creative Coordination</span>
-                            <span class="portfolio-tag">Team Management</span>
-                            <span class="portfolio-tag">Process Optimization</span>
-                            <span class="portfolio-tag">Quality Control</span>
+                    <a href="team-coordination-case-study.html" class="portfolio-card">
+                        <div class="portfolio-image">
+                            <div class="portfolio-icon">👥</div>
                         </div>
-                        <div class="read-more">
-                            Read Full Case Study →
+                        <div class="portfolio-content">
+                            <h3 class="portfolio-title">Team Coordination & Remote Management</h3>
+                            <p class="portfolio-description">Crisis campaign coordination across international distributed team, generating $117K in sales while maintaining all regular operations under extreme pressure.</p>
+                            <div class="portfolio-tags">
+                                <span class="portfolio-tag">Crisis Management</span>
+                                <span class="portfolio-tag">International Teams</span>
+                                <span class="portfolio-tag">Campaign Coordination</span>
+                                <span class="portfolio-tag">Multi-vendor Management</span>
+                            </div>
+                            <div class="read-more">
+                                Read Full Case Study →
+                            </div>
                         </div>
-                    </div>
-                </a>
-
-                <a href="team-coordination-case-study.html" class="portfolio-card">
-                    <div class="portfolio-image">
-                        <div class="portfolio-icon">👥</div>
-                    </div>
-                    <div class="portfolio-content">
-                        <h3 class="portfolio-title">Team Coordination & Remote Management</h3>
-                        <p class="portfolio-description">Crisis campaign coordination across international distributed team, generating $117K in sales while maintaining all regular operations under extreme pressure.</p>
-                        <div class="portfolio-tags">
-                            <span class="portfolio-tag">Crisis Management</span>
-                            <span class="portfolio-tag">International Teams</span>
-                            <span class="portfolio-tag">Campaign Coordination</span>
-                            <span class="portfolio-tag">Multi-vendor Management</span>
-                        </div>
-                        <div class="read-more">
-                            Read Full Case Study →
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
             </div>
+        </div>
+    </section>
 
     <section id="visuals" class="visual-portfolio">
         <div class="container">
@@ -1332,4 +1375,7 @@ ${data.company ? `\n${data.company}` : ''}`);
         }
     </script>
 </body>
-</html>
+</html>rem; font-weight: 500;">Adobe Creative Suite</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Canva Pro</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875rem; font-weight: 500;">Frame.io</div>
+                            <div style="background: #f8fafc; padding: 12px 16px; border-radius: 8px; font-size: 0.875
