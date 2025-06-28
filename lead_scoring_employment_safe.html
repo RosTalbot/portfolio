@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lead Scoring & Business Intelligence Discovery | Ros Talbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(30, 41, 59, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1e293b;
+        }
+
+        /* Header */
+        .case-study-header {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: var(--gray);
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        .case-study-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .meta-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .content-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid #667eea;
+            margin: 32px 0;
+        }
+
+        .highlight-box h3 {
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin: 40px 0;
+        }
+
+        .result-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .result-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Methodology Table */
+        .methodology-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            margin: 40px 0;
+        }
+
+        .table-header {
+            background: var(--primary);
+            color: white;
+            padding: 24px;
+            font-weight: 600;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 3fr;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .score-category {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .score-points {
+            font-weight: 700;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .score-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Key Insights */
+        .insight-list {
+            list-style: none;
+            margin: 32px 0;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .insight-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .insight-content h4 {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .insight-content p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: left;
+            }
+
+            .score-points {
+                text-align: left;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#portfolio">Portfolio</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="case-study-header">
+        <div class="container">
+            <h1 class="case-study-title">AI Lead Scoring & Business Intelligence Discovery</h1>
+            <p class="case-study-subtitle">Developing a data science methodology to optimize high-value prospect identification and uncover critical business insights</p>
+            
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">24 Hours + 13 Days</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Role</div>
+                    <div class="meta-value">Marketing PM</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Tools</div>
+                    <div class="meta-value">ChatGPT, Google Sheets</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Leads Processed</div>
+                    <div class="meta-value">426</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <a href="/#portfolio" class="back-button">← Back to Portfolio</a>
+                
+                <h2 class="section-title">Business Challenge</h2>
+                <p class="content-text">
+                    Our company launched a high-ticket B2B program but was experiencing zero conversions despite significant marketing effort across multiple channels. With 426 potential leads from various customer segments and leadership unavailable for guidance, I took initiative to develop a systematic approach to identify and prioritize the highest-probability prospects for personalized outreach.
+                </p>
+
+                <div class="highlight-box">
+                    <h3>Key Constraints</h3>
+                    <ul>
+                        <li>CRM lead scoring capability not activated</li>
+                        <li>Limited time for decision-making during critical launch period</li>
+                        <li>Need to protect perceived value of premium program offerings</li>
+                        <li>Founder's time required strategic allocation for maximum impact</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" style="background: var(--gray);">
+            <div class="container">
+                <h2 class="section-title">Methodology & AI-Assisted Development</h2>
+                <p class="content-text">
+                    I partnered with ChatGPT to develop a sophisticated 8-factor scoring system that balanced customer engagement indicators with strategic business considerations. The methodology prioritized recent engagement patterns, customer satisfaction signals, and communication accessibility levels.
+                </p>
+
+                <div class="methodology-table">
+                    <div class="table-header">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 3fr; gap: 24px;">
+                            <div>Scoring Category</div>
+                            <div style="text-align: center;">Points</div>
+                            <div>Methodology</div>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Recent Engagement</div>
+                        <div class="score-points">Up to 25</div>
+                        <div class="score-description">Weighted scoring based on recency: 7 days (+25), 30 days (+15), 60 days (+8), 90 days (+3), inactive (-15)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Customer Success Status</div>
+                        <div class="score-points">Up to 25</div>
+                        <div class="score-description">High-value graduates (+25), active high-value (+20), identified dropouts (-15)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Communication Quality</div>
+                        <div class="score-points">Up to 20</div>
+                        <div class="score-description">SMS + testimonial (+20), email + testimonial (+15), SMS only (+10), email only (+5)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Current Activity</div>
+                        <div class="score-points">Up to 10</div>
+                        <div class="score-description">Recent platform activity and engagement indicators</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Strategic Exclusions</div>
+                        <div class="score-points">-12</div>
+                        <div class="score-description">Premium program members (protects high-tier offering value)</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Implementation & Execution</h2>
+                
+                <h3 class="section-subtitle">Phase 1: Lead Prioritization</h3>
+                <p class="content-text">
+                    Processed 426 leads through the scoring framework in 24 hours, successfully identifying top 20 prospects for personalized outreach while strategically protecting premium program value.
+                </p>
+
+                <h3 class="section-subtitle">Phase 2: Tiered Outreach Strategy</h3>
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">1</div>
+                        <div class="insight-content">
+                            <h4>Personalized Video Messages</h4>
+                            <p>Top 20 leads received founder-created personal video invitations via Bonjoro app</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">2</div>
+                        <div class="insight-content">
+                            <h4>Scaled Generic Outreach</h4>
+                            <p>Remaining 406 leads received generic video invitation for broader reach</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">3</div>
+                        <div class="insight-content">
+                            <h4>Systematic Follow-up</h4>
+                            <p>Appointment setter worked through prioritized list with phone outreach over 12+ days</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" style="background: var(--gray);">
+            <div class="container">
+                <h2 class="section-title">Results & Key Discoveries</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-number">426</div>
+                        <div class="result-label">Leads Processed & Scored</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">~50%</div>
+                        <div class="result-label">Contact Rate Achieved</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">20</div>
+                        <div class="result-label">High-Priority Prospects Identified</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">78</div>
+                        <div class="result-label">Leads Contacted Before Project Pivot</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Critical Business Intelligence Uncovered</h3>
+                
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">📧</div>
+                        <div class="insight-content">
+                            <h4>Email Deliverability Crisis Identified</h4>
+                            <p>Most leads had never received program emails despite multiple campaigns, revealing massive database health issues requiring immediate attention</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">📅</div>
+                        <div class="insight-content">
+                            <h4>Market Timing Intelligence</h4>
+                            <p>Customer feedback revealed poor seasonal timing, with optimal launch window being early spring vs. busy summer season</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🔄</div>
+                        <div class="insight-content">
+                            <h4>Process Improvement Opportunities</h4>
+                            <p>Identified lack of systematic market research before campaign launches, connecting poor performance to process deficiencies</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Strategic Impact & Business Value</h2>
+                
+                <div class="highlight-box">
+                    <h3>Long-term Business Improvements</h3>
+                    <p class="content-text">
+                        The project evolved beyond lead scoring to become a comprehensive business intelligence initiative. Database health improvement strategies were implemented, seasonal timing insights influenced future planning, and systematic process improvements were recommended for campaign development.
+                    </p>
+                </div>
+
+                <h3 class="section-subtitle">Methodological Success Factors</h3>
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">🤖</div>
+                        <div class="insight-content">
+                            <h4>AI-Assisted Framework Development</h4>
+                            <p>Leveraged ChatGPT collaboration to create sophisticated, replicable scoring methodology</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🧠</div>
+                        <div class="insight-content">
+                            <h4>Behavioral Psychology Integration</h4>
+                            <p>Communication access levels and testimonial status proved strong indicators of customer engagement</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🎯</div>
+                        <div class="insight-content">
+                            <h4>Strategic Business Considerations</h4>
+                            <p>Successfully balanced immediate needs with long-term customer value protection</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <h3 class="section-subtitle">Portfolio Significance</h3>
+                <p class="content-text">
+                    This project demonstrates advanced customer segmentation using behavioral psychology principles, AI-assisted methodology development, and the ability to transform apparent failures into valuable business intelligence. The systematic approach and strategic thinking showcase skills directly applicable to AI implementation and data science roles.
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

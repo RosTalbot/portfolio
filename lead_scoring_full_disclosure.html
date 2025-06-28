@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Lead Scoring & Crisis Management | Ros Talbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --accent: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --gray: #f8fafc;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: rgba(255,255,255,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 50px;
+            padding: 12px 24px;
+            border: 1px solid rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(30, 41, 59, 0.8);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #1e293b;
+        }
+
+        /* Header */
+        .case-study-header {
+            padding: 150px 0 80px;
+            text-align: center;
+            background: var(--gray);
+        }
+
+        .case-study-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 24px;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .case-study-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .crisis-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 32px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .case-study-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            text-align: center;
+        }
+
+        .meta-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .meta-value {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .financial-highlight {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+            color: #d6336c;
+            font-weight: 800;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .content-text {
+            font-size: 1.125rem;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid #667eea;
+            margin: 32px 0;
+        }
+
+        .crisis-box {
+            background: linear-gradient(135deg, rgba(240, 147, 251, 0.1) 0%, rgba(245, 87, 108, 0.1) 100%);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid #f5576c;
+            margin: 32px 0;
+        }
+
+        .crisis-box h3 {
+            color: #d6336c;
+            margin-bottom: 16px;
+        }
+
+        .highlight-box h3 {
+            color: #667eea;
+            margin-bottom: 16px;
+        }
+
+        /* Financial Impact Grid */
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin: 40px 0;
+        }
+
+        .financial-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .financial-card.potential {
+            border-color: rgba(102, 126, 234, 0.2);
+        }
+
+        .financial-card.reality {
+            border-color: rgba(245, 87, 108, 0.2);
+        }
+
+        .financial-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .financial-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .financial-card.potential .financial-amount {
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .financial-card.reality .financial-amount {
+            color: #f5576c;
+        }
+
+        .financial-label {
+            font-weight: 600;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .financial-description {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Results Grid */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin: 40px 0;
+        }
+
+        .result-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .result-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .result-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: var(--primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 16px;
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        /* Methodology Table */
+        .methodology-table {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            margin: 40px 0;
+        }
+
+        .table-header {
+            background: var(--primary);
+            color: white;
+            padding: 24px;
+            font-weight: 600;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 3fr;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f1f5f9;
+            align-items: center;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .score-category {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .score-points {
+            font-weight: 700;
+            color: #667eea;
+            text-align: center;
+        }
+
+        .score-description {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Key Insights */
+        .insight-list {
+            list-style: none;
+            margin: 32px 0;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding: 24px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        .insight-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .insight-content h4 {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .insight-content p {
+            color: var(--text-light);
+            margin: 0;
+        }
+
+        /* Back Button */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Leadership Emphasis */
+        .leadership-highlight {
+            background: linear-gradient(135deg, rgba(75, 162, 254, 0.1) 0%, rgba(0, 242, 254, 0.1) 100%);
+            padding: 32px;
+            border-radius: 16px;
+            border-left: 4px solid #4facfe;
+            margin: 32px 0;
+        }
+
+        .leadership-highlight h3 {
+            color: #2563eb;
+            margin-bottom: 16px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .case-study-meta {
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .table-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+                text-align: left;
+            }
+
+            .score-points {
+                text-align: left;
+            }
+
+            .results-grid, .financial-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#portfolio">Portfolio</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header class="case-study-header">
+        <div class="container">
+            <div class="crisis-badge">Crisis Leadership Project</div>
+            <h1 class="case-study-title">AI Lead Scoring & Crisis Management</h1>
+            <p class="case-study-subtitle">Taking initiative during a company financial crisis to develop data science methodology that could potentially save the business while uncovering critical operational insights</p>
+            
+            <div class="case-study-meta">
+                <div class="meta-item">
+                    <div class="meta-label">Duration</div>
+                    <div class="meta-value">24 Hours + 13 Days</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Database Size</div>
+                    <div class="meta-value">45,532 Contacts</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Potential Revenue</div>
+                    <div class="meta-value financial-highlight">$47K - $68K</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">Initiative Type</div>
+                    <div class="meta-value">Self-Directed</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="content-section">
+            <div class="container">
+                <a href="/#portfolio" class="back-button">← Back to Portfolio</a>
+                
+                <h2 class="section-title">Crisis Context & Leadership Initiative</h2>
+                <p class="content-text">
+                    Our 14-year contractor coaching company was in major financial trouble and desperately needed a cash injection. The launch of our $6,790 high-ticket sales mastermind program (targeting 7-10 sales for $47,530-$67,900 in revenue) was failing with zero conversions despite significant marketing investment. With our CMO on vacation during this critical period, I took initiative to develop a systematic data science approach to salvage the campaign.
+                </p>
+
+                <div class="crisis-box">
+                    <h3>High-Stakes Business Context</h3>
+                    <ul>
+                        <li><strong>Company survival:</strong> Business in major financial crisis requiring immediate revenue</li>
+                        <li><strong>Premium program protection:</strong> War Room members ($14K/year, contractors making $5M+) needed careful handling</li>
+                        <li><strong>Leadership gap:</strong> CMO unavailable during critical campaign period</li>
+                        <li><strong>Resource constraints:</strong> CRM lead scoring not activated, limited tools available</li>
+                    </ul>
+                </div>
+
+                <div class="financial-grid">
+                    <div class="financial-card potential">
+                        <div class="financial-amount">$67,900</div>
+                        <div class="financial-label">Maximum Potential Revenue</div>
+                        <div class="financial-description">10 sales × $6,790 per company</div>
+                    </div>
+                    <div class="financial-card reality">
+                        <div class="financial-amount">$0</div>
+                        <div class="financial-label">Actual Revenue Achieved</div>
+                        <div class="financial-description">Zero conversions despite multi-channel marketing</div>
+                    </div>
+                    <div class="financial-card potential">
+                        <div class="financial-amount">$14K</div>
+                        <div class="financial-label">War Room Protection</div>
+                        <div class="financial-description">Annual value per premium member</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section" style="background: var(--gray);">
+            <div class="container">
+                <h2 class="section-title">AI-Assisted Methodology Development</h2>
+                <p class="content-text">
+                    Working under extreme time pressure, I partnered with ChatGPT to develop a sophisticated 8-factor scoring system that could process 426 leads from our 45,532-contact database. The methodology needed to balance immediate revenue opportunities with long-term customer value protection.
+                </p>
+
+                <div class="methodology-table">
+                    <div class="table-header">
+                        <div style="display: grid; grid-template-columns: 2fr 1fr 3fr; gap: 24px;">
+                            <div>Scoring Category</div>
+                            <div style="text-align: center;">Points</div>
+                            <div>Strategic Rationale</div>
+                        </div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Recent Engagement</div>
+                        <div class="score-points">Up to 25</div>
+                        <div class="score-description">Most predictive factor: 7 days (+25), 30 days (+15), 60 days (+8), 90 days (+3), inactive (-15)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Success/Graduate Status</div>
+                        <div class="score-points">Up to 25</div>
+                        <div class="score-description">Graduates who spent >$10K (+25), active high-value (+20), dropouts <$10K (-15)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Communication Access & Trust</div>
+                        <div class="score-points">Up to 20</div>
+                        <div class="score-description">SMS + testimonial (+20), email + testimonial (+15), SMS only (+10), email only (+5)</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Current Activity Indicators</div>
+                        <div class="score-points">Up to 10</div>
+                        <div class="score-description">Recent platform logins and engagement patterns</div>
+                    </div>
+                    <div class="table-row">
+                        <div class="score-category">Strategic Value Protection</div>
+                        <div class="score-points">-12</div>
+                        <div class="score-description">War Room members excluded to protect $14K/year program perceived value</div>
+                    </div>
+                </div>
+
+                <div class="leadership-highlight">
+                    <h3>Leadership Under Pressure</h3>
+                    <p>With leadership unavailable and the company's financial survival at stake, I took full ownership of developing and implementing this methodology. The scoring system had to work on the first try—there was no room for iteration in this crisis situation.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Execution & Crisis Management</h2>
+                
+                <h3 class="section-subtitle">Phase 1: Emergency Lead Processing (24 hours)</h3>
+                <p class="content-text">
+                    Processed 426 leads through the scoring framework in 24 hours, successfully identifying the top 20 prospects while strategically deprioritizing War Room members (ranked #156+) to protect our premium offering.
+                </p>
+
+                <h3 class="section-subtitle">Phase 2: Resource-Optimized Outreach Strategy</h3>
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">📹</div>
+                        <div class="insight-content">
+                            <h4>Founder Time Optimization</h4>
+                            <p>Top 20 leads received personalized video messages via Bonjoro app, maximizing impact of founder's limited time during crisis</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">📢</div>
+                        <div class="insight-content">
+                            <h4>Scaled Generic Outreach</h4>
+                            <p>Remaining 406 leads received generic video invitation to maximize reach with available resources</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">📞</div>
+                        <div class="insight-content">
+                            <h4>Systematic Phone Follow-up</h4>
+                            <p>Appointment setter worked through prioritized list reaching #78 before project pivot, achieving ~50% contact rate</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section" style="background: var(--gray);">
+            <div class="container">
+                <h2 class="section-title">Critical Business Intelligence Discovery</h2>
+                
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-number">426</div>
+                        <div class="result-label">Leads Scored in Crisis Timeline</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">89%</div>
+                        <div class="result-label">Database Reduction Required</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">$0</div>
+                        <div class="result-label">Campaign Revenue (But Valuable Intelligence Gained)</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-number">3</div>
+                        <div class="result-label">Major Business Issues Uncovered</div>
+                    </div>
+                </div>
+
+                <h3 class="section-subtitle">Business Intelligence Worth More Than Revenue</h3>
+                
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">📧</div>
+                        <div class="insight-content">
+                            <h4>Email Deliverability Crisis Exposed</h4>
+                            <p><strong>Root cause identified:</strong> Most leads never received emails despite 10+ campaigns. Database culled from 45,532 to 5,000 engaged contacts (89% reduction) with new engagement strategies implemented.</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">📅</div>
+                        <div class="insight-content">
+                            <h4>Market Timing Intelligence</h4>
+                            <p><strong>Customer feedback revealed:</strong> 6-week commitment impossible during busy summer season. Optimal timing identified as early spring. Multiple "family vacation" and "peak business" conflicts discovered.</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🔄</div>
+                        <div class="insight-content">
+                            <h4>Organizational Process Gaps</h4>
+                            <p><strong>Systemic issue identified:</strong> Complete lack of market research before campaigns. Poor performance connected to process deficiencies rather than product quality, leading to strategic recommendations for future launches.</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="crisis-box">
+                    <h3>Transforming Crisis into Strategic Advantage</h3>
+                    <p>While the campaign failed to generate immediate revenue, the data science methodology uncovered business intelligence worth significantly more than the $67,900 potential revenue. The insights led to fundamental improvements in database management, campaign timing, and organizational processes that affected all future marketing efforts.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <div class="container">
+                <h2 class="section-title">Portfolio Significance & Leadership Demonstration</h2>
+                
+                <div class="highlight-box">
+                    <h3>Crisis Leadership Under Extreme Pressure</h3>
+                    <p class="content-text">
+                        This project demonstrates the ability to step up during organizational crisis, develop sophisticated data science methodologies under extreme time pressure, and transform apparent failures into valuable business intelligence. The self-directed initiative during leadership absence showcases exactly the kind of strategic thinking and ownership that companies need in AI implementation roles.
+                    </p>
+                </div>
+
+                <h3 class="section-subtitle">Advanced Capabilities Demonstrated</h3>
+                <ul class="insight-list">
+                    <li class="insight-item">
+                        <div class="insight-icon">🎯</div>
+                        <div class="insight-content">
+                            <h4>High-Stakes Decision Making</h4>
+                            <p>Developed strategy that could potentially save company while protecting $14K+ annual customer relationships</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🤖</div>
+                        <div class="insight-content">
+                            <h4>AI-Assisted Problem Solving</h4>
+                            <p>Leveraged ChatGPT collaboration to create sophisticated, replicable methodology in crisis timeline</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">🧠</div>
+                        <div class="insight-content">
+                            <h4>Strategic Business Psychology</h4>
+                            <p>Integrated customer behavior patterns (communication access + testimonials) with business protection needs</p>
+                        </div>
+                    </li>
+                    <li class="insight-item">
+                        <div class="insight-icon">💡</div>
+                        <div class="insight-content">
+                            <h4>Business Intelligence Discovery</h4>
+                            <p>Transformed campaign failure into comprehensive organizational improvement insights</p>
+                        </div>
+                    </li>
+                </ul>
+
+                <h3 class="section-subtitle">Direct Application to AI Roles</h3>
+                <p class="content-text">
+                    This case study showcases advanced customer segmentation, AI-assisted methodology development, crisis management, and the ability to deliver strategic business intelligence under pressure. These capabilities directly transfer to AI implementation roles where companies need professionals who can develop systematic approaches, work with AI tools effectively, and provide business value beyond technical execution.
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
+        
