@@ -1,100 +1,435 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Hogwarts Letter</title>
-  <style>
-    body {
-      background-color: #fdf6e3;
-      font-family: "Georgia", serif;
-      color: #2e2b2b;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Your Hogwarts Letter Awaits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      max-width: 600px;
-      margin: 2em auto;
-      padding: 2em;
-      background: #fff8dc;
-      border: 2px solid #d2b48c;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
+        body {
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3a 25%, #2d1b69 50%, #1a1a3a 75%, #0f0f23 100%);
+            min-height: 100vh;
+            font-family: "Cormorant Garamond", serif;
+            color: #f4f1e8;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-    h1 {
-      text-align: center;
-      color: #5c4033;
-    }
+        /* Animated stars background */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    label {
-      display: block;
-      margin-top: 1em;
-      font-weight: bold;
-    }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 2s infinite alternate;
+        }
 
-    input, select {
-      width: 100%;
-      padding: 0.6em;
-      margin-top: 0.3em;
-      border: 1px solid #bfa989;
-      border-radius: 6px;
-      background-color: #fffdf5;
-      font-family: inherit;
-    }
+        .star:nth-child(1) { top: 20%; left: 10%; width: 2px; height: 2px; animation-delay: 0s; }
+        .star:nth-child(2) { top: 80%; left: 20%; width: 1px; height: 1px; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 40%; left: 70%; width: 2px; height: 2px; animation-delay: 1s; }
+        .star:nth-child(4) { top: 60%; left: 80%; width: 1px; height: 1px; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 10%; left: 60%; width: 1px; height: 1px; animation-delay: 2s; }
+        .star:nth-child(6) { top: 90%; left: 40%; width: 2px; height: 2px; animation-delay: 0.3s; }
+        .star:nth-child(7) { top: 30%; left: 90%; width: 1px; height: 1px; animation-delay: 0.8s; }
+        .star:nth-child(8) { top: 70%; left: 15%; width: 1px; height: 1px; animation-delay: 1.3s; }
 
-    button {
-      display: block;
-      margin: 2em auto 0;
-      padding: 0.8em 2em;
-      background-color: #5c4033;
-      color: white;
-      font-size: 1em;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-    }
+        @keyframes twinkle {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
 
-    button:hover {
-      background-color: #3f2d22;
-    }
-  </style>
+        /* Floating magical particles */
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .particle:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        .container {
+            max-width: 700px;
+            margin: 2em auto;
+            padding: 0 1.5em;
+            position: relative;
+            z-index: 10;
+        }
+
+        .scroll-wrapper {
+            background: linear-gradient(145deg, #2c1810, #1a0f08);
+            border: 3px solid #8b6914;
+            border-radius: 20px;
+            padding: 3em 2.5em;
+            position: relative;
+            box-shadow: 
+                0 20px 40px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.1),
+                0 0 60px rgba(139, 105, 20, 0.3);
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(139, 105, 20, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(139, 105, 20, 0.1) 0%, transparent 50%);
+        }
+
+        .scroll-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(45deg, #8b6914, #ffd700, #8b6914, #ffd700);
+            background-size: 400% 400%;
+            border-radius: 23px;
+            z-index: -1;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .hogwarts-crest {
+            text-align: center;
+            margin-bottom: 2em;
+        }
+
+        .crest-symbol {
+            font-size: 4em;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(255, 215, 0, 0.3); }
+            to { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(255, 215, 0, 0.6); }
+        }
+
+        h1 {
+            font-family: "Cinzel", serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 0.3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            font-size: 1.2em;
+            color: #d4af37;
+            margin-bottom: 2.5em;
+            opacity: 0.9;
+        }
+
+        .form-group {
+            margin-bottom: 2em;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5em;
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #f4f1e8;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        input, select {
+            width: 100%;
+            padding: 1em 1.2em;
+            border: 2px solid #8b6914;
+            border-radius: 12px;
+            background: linear-gradient(145deg, #2a1f1a, #1f1611);
+            color: #f4f1e8;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 
+                inset 0 2px 4px rgba(0,0,0,0.3),
+                0 0 15px rgba(255, 215, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        input::placeholder {
+            color: #8b7355;
+            font-style: italic;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #2a1f1a;
+            color: #f4f1e8;
+            padding: 0.5em;
+        }
+
+        .magical-button {
+            display: block;
+            margin: 3em auto 0;
+            padding: 1.2em 3em;
+            background: linear-gradient(145deg, #8b6914, #ffd700);
+            color: #1a0f08;
+            font-family: "Cinzel", serif;
+            font-size: 1.3em;
+            font-weight: 600;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 8px 16px rgba(0,0,0,0.4),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .magical-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .magical-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 12px 24px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.3),
+                0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .magical-button:hover::before {
+            left: 100%;
+        }
+
+        .magical-button:active {
+            transform: translateY(-1px);
+        }
+
+        /* Add some floating magical elements */
+        .magic-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ffd700;
+            border-radius: 50%;
+            animation: magicFloat 8s infinite linear;
+            opacity: 0;
+        }
+
+        .magic-particle:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+        .magic-particle:nth-child(2) { top: 20%; left: 80%; animation-delay: 2s; }
+        .magic-particle:nth-child(3) { top: 60%; left: 10%; animation-delay: 4s; }
+        .magic-particle:nth-child(4) { top: 80%; left: 70%; animation-delay: 6s; }
+
+        @keyframes magicFloat {
+            0% { opacity: 0; transform: translateY(0) rotate(0deg); }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { opacity: 0; transform: translateY(-100px) rotate(360deg); }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1em auto;
+                padding: 0 1em;
+            }
+
+            .scroll-wrapper {
+                padding: 2em 1.5em;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .crest-symbol {
+                font-size: 3em;
+            }
+
+            .magical-button {
+                padding: 1em 2em;
+                font-size: 1.1em;
+            }
+        }
+
+        /* Loading animation for form submission */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .magical-button {
+            background: linear-gradient(145deg, #555, #777);
+        }
+
+        .loading .magical-button::after {
+            content: 'Summoning Owl...';
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Request Your Hogwarts Letter</h1>
-    <form action="https://rostalbot.app.n8n.cloud/webhook/hogwarts-form" method="POST">
-      <label for="name">Full Name</label>
-      <input type="text" name="name" required />
+    <div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>
 
-<label for="email">Your Email Address</label>
-<input type="email" name="email" required />
+    <div class="container">
+        <div class="scroll-wrapper">
+            <div class="magic-particle"></div>
+            <div class="magic-particle"></div>
+            <div class="magic-particle"></div>
+            <div class="magic-particle"></div>
 
-      <label for="subject">Name Your Subject of Excellence</label>
-      <select name="subject" required>
-        <option value="" disabled selected>Select your subject</option>
-        <option value="Defense Against the Dark Arts">Defense Against the Dark Arts</option>
-        <option value="Charms">Charms</option>
-        <option value="Potions">Potions</option>
-        <option value="Herbology">Herbology</option>
-        <option value="Transfiguration">Transfiguration</option>
-        <option value="Astronomy">Astronomy</option>
-        <option value="Care of Magical Creatures">Care of Magical Creatures</option>
-      </select>
+            <div class="hogwarts-crest">
+                <div class="crest-symbol">🦉</div>
+            </div>
 
-      <label for="patronus">What is your Patronus?</label>
-      <input type="text" name="patronus" required />
+            <h1>Your Hogwarts Letter Awaits</h1>
+            <p class="subtitle">Complete this enchanted form to receive your personalized acceptance letter</p>
 
-      <label for="vibe">Pick Your Vibe</label>
-      <select name="vibe" required>
-        <option value="" disabled selected>Day or Night?</option>
-        <option value="Day">Day</option>
-        <option value="Night">Night</option>
-      </select>
+            <form action="https://rostalbot.app.n8n.cloud/webhook/hogwarts-form" method="POST" id="hogwartsForm">
+                <div class="form-group">
+                    <label for="name">✨ Your Full Magical Name</label>
+                    <input type="text" name="name" id="name" required placeholder="Enter your name as it appears on your wand registration" />
+                </div>
 
-      <button type="submit">Summon the Owl</button>
-    </form>
-  </div>
+                <div class="form-group">
+                    <label for="email">📧 Owl Post Address (Email)</label>
+                    <input type="email" name="email" id="email" required placeholder="Where shall we send your acceptance letter?" />
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">📚 Your Subject of Excellence</label>
+                    <select name="subject" id="subject" required>
+                        <option value="" disabled selected>Choose your magical specialty...</option>
+                        <option value="Defense Against the Dark Arts">⚔️ Defense Against the Dark Arts</option>
+                        <option value="Charms">✨ Charms</option>
+                        <option value="Potions">🧪 Potions</option>
+                        <option value="Herbology">🌿 Herbology</option>
+                        <option value="Transfiguration">🔄 Transfiguration</option>
+                        <option value="Astronomy">🌟 Astronomy</option>
+                        <option value="Care of Magical Creatures">🐲 Care of Magical Creatures</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="patronus">🦌 What is Your Patronus?</label>
+                    <input type="text" name="patronus" id="patronus" required placeholder="The guardian spirit that protects you..." />
+                </div>
+
+                <div class="form-group">
+                    <label for="vibe">🌅 When Do You Feel Most Magical?</label>
+                    <select name="vibe" id="vibe" required>
+                        <option value="" disabled selected>Choose your magical time...</option>
+                        <option value="Day">☀️ Day - When sunlight illuminates ancient spells</option>
+                        <option value="Night">🌙 Night - When moonlight awakens hidden magic</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="magical-button">
+                    🦉 Summon the Owl
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Add magical interaction effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('hogwartsForm');
+            const inputs = document.querySelectorAll('input, select');
+
+            // Add focus effects
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+
+                input.addEventListener('blur', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Form submission with loading state
+            form.addEventListener('submit', function() {
+                form.classList.add('loading');
+                setTimeout(() => {
+                    // Remove loading state after a reasonable time if still on page
+                    form.classList.remove('loading');
+                }, 5000);
+            });
+
+            // Add random floating particles
+            function createMagicalParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.width = (Math.random() * 3 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                    particle.remove();
+                }, 6000);
+            }
+
+            // Create particles periodically
+            setInterval(createMagicalParticle, 3000);
+        });
+    </script>
 </body>
 </html>
