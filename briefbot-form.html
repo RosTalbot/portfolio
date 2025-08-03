@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BriefBot - Creative Brief Generator</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23495057'/><circle cx='50' cy='50' r='35' fill='%23ffffff'/><circle cx='50' cy='50' r='25' fill='%23495057'/></svg>">
+    <link rel="icon" type="image/png" href="briefbot-favicon.png">
     <style>
         * {
             margin: 0;
@@ -409,7 +409,47 @@
         </div>
         
         <div class="form-content">
-            <form>
+<form method="POST" action="https://rostalbot.app.n8n.cloud/webhook/briefbot-form">
+  <label for="projectName">1. What’s this thing called?</label>
+  <input type="text" id="projectName" name="projectName" placeholder="Give your project a name (clever or boring, doesn’t matter.)" required />
+
+  <label for="audience">2. Who is your audience, and what do they actually care about?</label>
+  <textarea id="audience" name="audience" placeholder="Be specific. What are they struggling with? What do they want more of? How do they talk?" required></textarea>
+
+  <label for="brand">3. What brand, company, or public figure is this for (if any)?</label>
+  <input type="text" id="brand" name="brand" placeholder="Name of a company or creator. Helps me search for voice/style clues." />
+
+  <label for="assetType">4. What kind of content, system, or asset are we creating?</label>
+  <input type="text" id="assetType" name="assetType" placeholder="Landing page? Launch strategy? Meme series?" />
+
+  <label for="brainDump">5. Drop your brain dump here.</label>
+  <textarea id="brainDump" name="brainDump" placeholder="Goals, facts, phrases, messy brainstorms. Dump it all in."></textarea>
+
+  <label for="references">6. Got references, links, or screenshots?</label>
+  <textarea id="references" name="references" placeholder="Drop URLs or describe the vibe you’re going for."></textarea>
+
+  <label for="clarity">7. How polished is your idea?</label>
+  <select id="clarity" name="clarity">
+    <option value="super clear">Super clear, just needs formatting</option>
+    <option value="clear but needs voice">Clear, but still messy or scattered</option>
+    <option value="help me figure it out">Help me figure it out from scratch</option>
+  </select>
+
+  <label for="tone">8. Any tone/style guidelines?</label>
+  <input type="text" id="tone" name="tone" placeholder="Snarky? Soothing? Buttoned-up? Tell me how it should sound." />
+
+  <label for="avoid">9. Any words, phrases, or directions to avoid?</label>
+  <textarea id="avoid" name="avoid" placeholder="Things that feel off-brand or out of touch."></textarea>
+
+  <label for="webSearch">10. Okay if BriefBot searches the web to fill in gaps?</label>
+  <select id="webSearch" name="webSearch">
+    <option value="yes">Yes, go ahead</option>
+    <option value="no">No, just use my input</option>
+  </select>
+
+  <button type="submit">✨ Generate My Brief</button>
+</form>
+            <form action="https://rostalbot.app.n8n.cloud/webhook/briefbot-form" method="POST">
                 <div class="field-group">
                     <label for="project-name">What's this thing called?</label>
                     <input type="text" id="project-name" name="project-name" placeholder="Give your project a name (clever or boring, doesn't matter.)">
