@@ -13,6 +13,7 @@
       background: linear-gradient(135deg, #4A154B 0%, #36C5F0 100%);
       color: #333;
     }
+
     .container {
       max-width: 800px;
       margin: 40px auto;
@@ -21,27 +22,33 @@
       overflow: hidden;
       box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
     }
+
     .header {
       background: linear-gradient(135deg, #4A154B, #36C5F0);
       padding: 2rem;
       text-align: center;
       color: white;
     }
+
     .header h1 {
       margin: 0;
       font-size: 2.2rem;
     }
+
     .form-section {
       padding: 2rem;
     }
+
     .form-group {
       margin-bottom: 1.5rem;
     }
+
     label {
       display: block;
       margin-bottom: 0.5rem;
       font-weight: 600;
     }
+
     input, textarea, select {
       width: 100%;
       padding: 0.75rem;
@@ -49,6 +56,17 @@
       border-radius: 8px;
       font-size: 1rem;
     }
+
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.5rem;
+    }
+
+    .checkbox-grid label {
+      font-weight: 400;
+    }
+
     button {
       width: 100%;
       padding: 1rem;
@@ -61,9 +79,11 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
+
     button:hover {
       background: linear-gradient(135deg, #2EB67D, #E01E5A);
     }
+
     .message {
       padding: 1rem;
       text-align: center;
@@ -77,6 +97,7 @@
       <h1>🧪 Sync | PromptAlchemy</h1>
       <p>Refine and transform raw ideas into structured, optimized prompts</p>
     </div>
+
     <form class="form-section" id="promptForm">
       <div class="form-group">
         <label for="prompt">Raw Prompt *</label>
@@ -94,6 +115,20 @@
           <option value="announcement">Announcement</option>
           <option value="product-update">Product Update</option>
         </select>
+      </div>
+
+      <div class="form-group">
+        <label>Platform(s)</label>
+        <div class="checkbox-grid">
+          <label><input type="checkbox" name="platforms" value="Facebook"> Facebook</label>
+          <label><input type="checkbox" name="platforms" value="Instagram"> Instagram</label>
+          <label><input type="checkbox" name="platforms" value="LinkedIn"> LinkedIn</label>
+          <label><input type="checkbox" name="platforms" value="YouTube"> YouTube</label>
+          <label><input type="checkbox" name="platforms" value="TikTok"> TikTok</label>
+          <label><input type="checkbox" name="platforms" value="Twitter"> X (Twitter)</label>
+          <label><input type="checkbox" name="platforms" value="Threads"> Threads</label>
+          <label><input type="checkbox" name="platforms" value="Other"> Other</label>
+        </div>
       </div>
 
       <div class="form-group">
@@ -141,8 +176,18 @@
 
       const formData = new FormData(form);
       const data = {};
+
+      // Standard fields
       formData.forEach((value, key) => {
-        data[key] = value;
+        if (data[key]) {
+          if (Array.isArray(data[key])) {
+            data[key].push(value);
+          } else {
+            data[key] = [data[key], value];
+          }
+        } else {
+          data[key] = value;
+        }
       });
 
       messageDiv.textContent = 'Sending your prompt to the lab... 🧪';
